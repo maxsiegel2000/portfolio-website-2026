@@ -10,6 +10,8 @@ import { LinkedinIcon, type LinkedinIconHandle } from "../ui/linkedin"
 import { MailCheckIcon, type MailCheckIconHandle } from "../ui/mail-check"
 import { CopyIcon, type CopyIconHandle } from "../ui/copy"
 import { MapPinIcon, type MapPinIconHandle } from "../ui/map-pin"
+import Image from "next/image"
+import { MessageCircle } from 'lucide-react';
 
 function HeroSection(){
 	const githubIconRef = useRef<GithubIconHandle>(null)
@@ -21,6 +23,8 @@ function HeroSection(){
 	const [isEmailCopied, setIsEmailCopied] = useState(false)
 	const [showEmailCopiedTooltip, setShowEmailCopiedTooltip] = useState(false)
 	const emailCopyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+	const [isHovered, setIsHovered] = useState(false);
 
 	useEffect(() => {
 		return () => {
@@ -50,11 +54,11 @@ function HeroSection(){
 							</h1>
 							<div className="flex flex-col items-start gap-2 @lg/hero:flex-row @lg/hero:items-center">
 								<p className="text-xl @md/hero:text-2xl @lg/hero:text-3xl text-text-secondary font-medium">
-									Hi! I'am Max I build
+									Hi! I'am Max I create
 								</p>
 								<LayoutTextFlip
 									text={""}
-									words={["Web applications", "Websites", "Mobile Apps", "Security", "Authentication Systems"]}
+									words={["Web applications", "Websites", "Mobile Apps", "Full-Stack SaaS Apps", "Authentication Systems"]}
 									duration={3000}
 									className="text-xl @md/hero:text-2xl @lg/hero:text-3xl text-primary font-medium"
 								/>
@@ -151,7 +155,31 @@ function HeroSection(){
 									</div>
 									<span>Available</span>
 								</div>
+							</div>
 						</div>
+						<div 
+							className="group relative w-full max-w-150 overflow-hidden rounded-2xl drop-shadow-card aspect-square"
+							onMouseEnter={() => setIsHovered(true)}
+      						onMouseLeave={() => setIsHovered(false)}
+						>
+							<Image
+								src="/assets/images/pb.png"
+								alt="MaxSiegel"
+								fill
+							/>
+							<div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-b from-transparent to-background" />
+							{/* Hover Overlay */}
+							<div
+								className={`absolute inset-0 bg-background/70 border rounded-2xl backdrop-blur-sm flex items-center justify-center transition-opacity duration-300 cursor-pointer ${
+								isHovered ? "opacity-100" : "opacity-0"
+							}`}>
+								<div className="text-center space-y-3">
+									<MessageCircle className="w-12 h-12 text-primary mx-auto" />
+									<span className="text-primary text-xl font-semibold">
+										Click to, contact me!
+									</span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

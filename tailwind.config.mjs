@@ -90,6 +90,10 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./portfolio/src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./portfolio/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./portfolio/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./portfolio/data/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {

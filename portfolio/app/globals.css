@@ -7,7 +7,7 @@
   --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
   --animate-cell-ripple: cell-ripple var(--duration, 200ms) ease-out none 1
   var(--delay, 0ms);
- 
+
   @keyframes cell-ripple {
     0% {
       opacity: 0.4;
@@ -30,7 +30,6 @@
       transform: translate(-50%, -40%) scale(1);
     }
   }
-
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -75,6 +74,15 @@
 
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
+  --animate-star-btn: star-btn calc(var(--duration) * 1s) linear infinite;
+  @keyframes star-btn {
+  0% {
+    offset-distance: 0%;
+    }
+  100% {
+    offset-distance: 100%;
+    }
+  }
 }
 
 :root {
@@ -222,6 +230,26 @@
     font-family: 'Nunito', sans-serif;
     overflow-x: clip;
   }
+
+  .scrollbar-hide,
+  .scrollbar-hide body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar,
+  .scrollbar-hide body::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mask-top-fade {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 40%, #0A0D12 100%);
+    mask-image: linear-gradient(to bottom, transparent 40%, #0A0D12 100%);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
 }
 
 @theme{
@@ -234,4 +262,44 @@
       opacity: 0;
     }
   }
+}
+
+.mask-top-fade {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 40%, #0A0D12 100%);
+  mask-image: linear-gradient(to bottom, transparent 40%, #0A0D12 100%);
+}
+
+.mask-bot-fade {
+  -webkit-mask-image: linear-gradient(to top, transparent 40%, #0A0D12 100%);
+  mask-image: linear-gradient(to top, transparent 40%, #0A0D12 100%);
+}
+
+.mask-left-fade {
+  -webkit-mask-image: linear-gradient(to left, transparent 40%, #0A0D12 100%);
+  mask-image: linear-gradient(to left, transparent 40%, #0A0D12 100%);
+}
+
+.mask-right-fade {
+  -webkit-mask-image: linear-gradient(to right, transparent 40%, #0A0D12 100%);
+  mask-image: linear-gradient(to right, transparent 40%, #0A0D12 100%);
+}
+
+.mask-top-right-fade {
+  -webkit-mask-image: linear-gradient(to top right, transparent 60%, #0A0D12 100%);
+  mask-image: linear-gradient(to top right, transparent 60%, #0A0D12 100%);
+}
+
+.mask-top-left-fade {
+  -webkit-mask-image: linear-gradient(to top left, transparent 60%, #0A0D12 100%);
+  mask-image: linear-gradient(to top left, transparent 60%, #0A0D12 100%);
+}
+
+.mask-bot-left-fade {
+  -webkit-mask-image: linear-gradient(to bottom left, transparent 60%, #0A0D12 100%);
+  mask-image: linear-gradient(to bottom left, transparent 60%, #0A0D12 100%);
+}
+
+.mask-bot-right-fade {
+  -webkit-mask-image: linear-gradient(to bottom right, #0A0D12 0%, transparent 60%);
+  mask-image: linear-gradient(to bottom right, #0A0D12 0%, transparent 60%);
 }
