@@ -1,16 +1,15 @@
 "use client";
 
-import { useState } from "react";
-
 import { motion } from "framer-motion";
 import {
+  CreditCard,
   Home,
   LineChart,
-  CreditCard,
   MessageCircle,
   Trophy,
   User,
 } from "lucide-react";
+import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 

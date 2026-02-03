@@ -108,7 +108,7 @@ export default {
         background: cssVar("--bg-primary"),
         "background-secondary": cssVar("--bg-secondary"),
         "background-tertiary": cssVar("--bg-tertiary"),
-        overlay: 'var(--hover-overlay)',
+        overlay: "var(--hover-overlay)",
         primary: cssVar("--text-primary"),
         secondary: cssVar("--text-secondary"),
         muted: cssVar("--text-muted"),

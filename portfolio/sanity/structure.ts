@@ -3,22 +3,18 @@ import {
   BookIcon,
   CaseIcon,
   CogIcon,
-  CommentIcon,
-  ComposeIcon,
-  DocumentIcon,
   DocumentsIcon,
   InlineIcon,
   ProjectsIcon,
   RocketIcon,
-  StarIcon,
-  TagIcon,
   UserIcon,
 } from "@sanity/icons";
 import type { StructureResolver } from "sanity/structure";
 
+// https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title("Portfolio Content")
+    .title("Content")
     .items([
       // Profile (Singleton)
       S.listItem()
@@ -49,12 +45,6 @@ export const structure: StructureResolver = (S) =>
                 .icon(AsteriskIcon)
                 .schemaType("skill")
                 .child(S.documentTypeList("skill").title("Skills")),
-
-              S.listItem()
-                .title("Services")
-                .icon(TagIcon)
-                .schemaType("service")
-                .child(S.documentTypeList("service").title("Services")),
             ]),
         ),
 
@@ -81,48 +71,6 @@ export const structure: StructureResolver = (S) =>
                 .icon(BookIcon)
                 .schemaType("education")
                 .child(S.documentTypeList("education").title("Education")),
-
-              S.listItem()
-                .title("Certifications")
-                .icon(DocumentIcon)
-                .schemaType("certification")
-                .child(
-                  S.documentTypeList("certification").title("Certifications"),
-                ),
-
-              S.listItem()
-                .title("Achievements & Awards")
-                .icon(StarIcon)
-                .schemaType("achievement")
-                .child(
-                  S.documentTypeList("achievement").title(
-                    "Achievements & Awards",
-                  ),
-                ),
-            ]),
-        ),
-
-      S.divider(),
-
-      // Content & Community
-      S.listItem()
-        .title("Content & Community")
-        .icon(DocumentsIcon)
-        .child(
-          S.list()
-            .title("Content & Community")
-            .items([
-              S.listItem()
-                .title("Blog Posts")
-                .icon(ComposeIcon)
-                .schemaType("blog")
-                .child(S.documentTypeList("blog").title("Blog Posts")),
-
-              S.listItem()
-                .title("Testimonials")
-                .icon(CommentIcon)
-                .schemaType("testimonial")
-                .child(S.documentTypeList("testimonial").title("Testimonials")),
             ]),
         ),
 

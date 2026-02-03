@@ -56,7 +56,7 @@ const MailCheckIcon = forwardRef<MailCheckIconHandle, MailCheckIconProps>(
           controls.start("animate");
         }
       },
-      [controls, onMouseEnter]
+      [controls, onMouseEnter],
     );
 
     const handleMouseLeave = useCallback(
@@ -67,7 +67,7 @@ const MailCheckIcon = forwardRef<MailCheckIconHandle, MailCheckIconProps>(
           controls.start("normal");
         }
       },
-      [controls, onMouseLeave]
+      [controls, onMouseLeave],
     );
 
     return (
@@ -100,7 +100,7 @@ const MailCheckIcon = forwardRef<MailCheckIconHandle, MailCheckIconProps>(
         </svg>
       </div>
     );
-  }
+  },
 );
 
 MailCheckIcon.displayName = "MailCheckIcon";

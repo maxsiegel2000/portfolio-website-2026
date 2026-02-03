@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import React, { CSSProperties, ReactNode, useEffect, useRef } from "react"
+import { type CSSProperties, type ReactNode, useEffect, useRef } from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 interface StarBackgroundProps {
-  color?: string
+  color?: string;
 }
 
 function StarBackground({ color }: StarBackgroundProps) {
@@ -36,18 +36,18 @@ function StarBackground({ color }: StarBackgroundProps) {
         </clipPath>
       </defs>
     </svg>
-  )
+  );
 }
 
 interface StarButtonProps {
-  children: ReactNode
-  lightWidth?: number
-  duration?: number
-  lightColor?: string
-  backgroundColor?: string
-  starColor?: string
-  borderWidth?: number
-  className?: string
+  children: ReactNode;
+  lightWidth?: number;
+  duration?: number;
+  lightColor?: string;
+  backgroundColor?: string;
+  starColor?: string;
+  borderWidth?: number;
+  className?: string;
 }
 
 export function StarButton({
@@ -61,17 +61,17 @@ export function StarButton({
   className,
   ...props
 }: StarButtonProps) {
-  const pathRef = useRef<HTMLButtonElement>(null)
+  const pathRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (pathRef.current) {
-      const div = pathRef.current
+      const div = pathRef.current;
       div.style.setProperty(
         "--path",
-        `path('M 0 0 H ${div.offsetWidth} V ${div.offsetHeight} H 0 V 0')`
-      )
+        `path('M 0 0 H ${div.offsetWidth} V ${div.offsetHeight} H 0 V 0')`,
+      );
     }
-  }, [])
+  }, []);
 
   return (
     <button
@@ -88,7 +88,7 @@ export function StarButton({
       ref={pathRef}
       className={cn(
         "group/star-button relative z-[3] inline-flex md:h-18 items-center justify-center gap-2 overflow-hidden rounded-3xl px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors disabled:pointer-events-none disabled:opacity-50",
-        className
+        className,
       )}
       {...props}
     >
@@ -113,5 +113,5 @@ export function StarButton({
         {children}
       </span>
     </button>
-  )
+  );
 }

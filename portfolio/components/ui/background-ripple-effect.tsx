@@ -1,5 +1,6 @@
 "use client";
-import React, { useMemo, useRef, useState } from "react";
+import type React from "react";
+import { useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const BackgroundRippleEffect = ({
@@ -24,7 +25,6 @@ export const BackgroundRippleEffect = ({
       className={cn(
         "absolute inset-0 h-full w-full",
         "[--cell-border-color:var(--border-primary)] [--cell-fill-color:var(--bg-primary)] [--cell-shadow-color:var(--bg-secondary)]",
-        
       )}
     >
       <div className="relative h-auto w-auto overflow-hidden">
@@ -62,8 +62,8 @@ type DivGridProps = {
 };
 
 type CellStyle = React.CSSProperties & {
-  ["--delay"]?: string;
-  ["--duration"]?: string;
+  "--delay"?: string;
+  "--duration"?: string;
 };
 
 const DivGrid = ({

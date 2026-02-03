@@ -1,9 +1,9 @@
-import * as React from "react"
+import type * as React from "react";
 
 interface Visual1Props {
-  mainColor?: string
-  secondaryColor?: string
-  gridColor?: string
+  mainColor?: string;
+  secondaryColor?: string;
+  gridColor?: string;
 }
 
 export function Visual1({
@@ -23,11 +23,11 @@ export function Visual1({
       <EllipseGradient color={mainColor} />
       <GridLayer color={gridColor} />
     </div>
-  )
+  );
 }
 
 interface GridLayerProps {
-  color: string
+  color: string;
 }
 
 const GridLayer = ({ color }: GridLayerProps) => {
@@ -40,11 +40,11 @@ const GridLayer = ({ color }: GridLayerProps) => {
       }
       className="pointer-events-none absolute inset-0 z-[4] h-full w-full bg-transparent bg-[linear-gradient(to_right,var(--grid-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-color)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)] bg-[size:20px_20px] bg-center opacity-70"
     />
-  )
-}
+  );
+};
 
 interface EllipseGradientProps {
-  color: string
+  color: string;
 }
 
 const EllipseGradient = ({ color }: EllipseGradientProps) => {
@@ -74,12 +74,12 @@ const EllipseGradient = ({ color }: EllipseGradientProps) => {
         </defs>
       </svg>
     </div>
-  )
-}
+  );
+};
 
 interface LayerProps {
-  color: string
-  secondaryColor?: string
+  color: string;
+  secondaryColor?: string;
 }
 
 const Layer1 = ({ color, secondaryColor }: LayerProps) => {
@@ -189,8 +189,8 @@ const Layer1 = ({ color, secondaryColor }: LayerProps) => {
         />
       </svg>
     </div>
-  )
-}
+  );
+};
 
 const Layer2 = ({ color }: LayerProps) => {
   return (
@@ -220,8 +220,8 @@ const Layer2 = ({ color }: LayerProps) => {
       </svg>
       <div className="ease-[cubic-bezier(0.6, 0.6, 0, 1)] absolute inset-0 z-[3] transform bg-gradient-to-r from-transparent from-0% to-white to-15% transition-transform duration-500 group-hover/animated-card:translate-x-full dark:to-black"></div>
     </div>
-  )
-}
+  );
+};
 
 const Layer3 = ({ color, secondaryColor }: LayerProps) => {
   return (
@@ -232,8 +232,8 @@ const Layer3 = ({ color, secondaryColor }: LayerProps) => {
           "--color": color,
           "--secondary-color": secondaryColor,
         } as React.CSSProperties & {
-          "--color": string
-          "--secondary-color": string
+          "--color": string;
+          "--secondary-color": string;
         }
       }
     >
@@ -250,8 +250,8 @@ const Layer3 = ({ color, secondaryColor }: LayerProps) => {
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Layer4 = () => {
   return (
@@ -267,5 +267,5 @@ const Layer4 = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

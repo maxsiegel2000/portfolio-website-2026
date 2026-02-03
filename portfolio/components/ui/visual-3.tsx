@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { useState } from "react"
+import type * as React from "react";
+import { useState } from "react";
 
 interface Visual3Props {
-  mainColor?: string
-  secondaryColor?: string
-  gridColor?: string
-  showLayer1?: boolean
+  mainColor?: string;
+  secondaryColor?: string;
+  gridColor?: string;
+  showLayer1?: boolean;
 }
 
 export function Visual3({
   mainColor = "#8b5cf6",
   secondaryColor = "#fbbf24",
   gridColor = "#80808015",
-  showLayer1 = false
+  showLayer1 = false,
 }: Visual3Props) {
-  const [hovered, setHovered] = useState(false)
+  const [hovered, setHovered] = useState(false);
 
   return (
     <>
@@ -42,18 +42,18 @@ export function Visual3({
         <Layer2 color={mainColor} />
         {showLayer1 ? (
           <Layer1 color={mainColor} secondaryColor={secondaryColor} />
-        ):null}
+        ) : null}
         {/* <EllipseGradient color={mainColor} /> */}
         <GridLayer color={gridColor} />
       </div>
     </>
-  )
+  );
 }
 
 interface LayerProps {
-  color: string
-  secondaryColor?: string
-  hovered?: boolean
+  color: string;
+  secondaryColor?: string;
+  hovered?: boolean;
 }
 
 const GridLayer: React.FC<{ color: string }> = ({ color }) => {
@@ -62,10 +62,10 @@ const GridLayer: React.FC<{ color: string }> = ({ color }) => {
       style={{ "--grid-color": color } as React.CSSProperties}
       className="pointer-events-none absolute inset-0 z-[4] h-full w-full bg-transparent bg-[linear-gradient(to_right,var(--grid-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-color)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)] bg-[size:20px_20px] bg-center opacity-70"
     />
-  )
-}
+  );
+};
 
-const EllipseGradient: React.FC<{ color: string }> = ({ color }) => {
+const _EllipseGradient: React.FC<{ color: string }> = ({ color }) => {
   return (
     <div className="absolute inset-0 z-[5] h-full w-full">
       <svg
@@ -92,8 +92,8 @@ const EllipseGradient: React.FC<{ color: string }> = ({ color }) => {
         </defs>
       </svg>
     </div>
-  )
-}
+  );
+};
 
 const Layer3: React.FC<{ color: string }> = ({ color }) => {
   return (
@@ -121,8 +121,8 @@ const Layer3: React.FC<{ color: string }> = ({ color }) => {
         </defs>
       </svg>
     </div>
-  )
-}
+  );
+};
 
 const Layer1: React.FC<LayerProps> = ({ color, secondaryColor }) => {
   return (
@@ -148,8 +148,8 @@ const Layer1: React.FC<LayerProps> = ({ color, secondaryColor }) => {
         </span>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Layer2: React.FC<{ color: string }> = ({ color }) => {
   return (
@@ -161,9 +161,7 @@ const Layer2: React.FC<{ color: string }> = ({ color }) => {
         <div className="ease-[cubic-bezier(0.6, 0, 1)] rounded-md border p-1.5 opacity-0 backdrop-blur-sm transition-opacity duration-500 group-hover/animated-card:opacity-100 bg-background">
           <div className="flex items-center gap-2">
             <div className="h-2 w-2 shrink-0 rounded-full bg-[var(--color)]" />
-            <p className="text-xs text-primary">
-              Iteration over stagnation.
-            </p>
+            <p className="text-xs text-primary">Iteration over stagnation.</p>
           </div>
           <p className="text-xs text-text-secondary">
             Grow is part of the process.
@@ -171,8 +169,8 @@ const Layer2: React.FC<{ color: string }> = ({ color }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Layer4: React.FC<LayerProps> = ({ color, secondaryColor, hovered }) => {
   const rectsData = [
@@ -316,7 +314,7 @@ const Layer4: React.FC<LayerProps> = ({ color, secondaryColor, hovered }) => {
       fill: color,
       hoverFill: color,
     },
-  ]
+  ];
 
   return (
     <div className="ease-[cubic-bezier(0.6, 0.6, 0, 1)] absolute inset-0 z-[8] h-full w-full group-hover/animated-card:translate-y-[10%] text-neutral-800/10 transition-transform duration-500 group-hover/animated-card:scale-120 dark:text-white/15">
@@ -341,5 +339,5 @@ const Layer4: React.FC<LayerProps> = ({ color, secondaryColor, hovered }) => {
         ))}
       </svg>
     </div>
-  )
-}
+  );
+};

@@ -1,23 +1,24 @@
-"use client"
+"use client";
 
+import { Lightbulb } from "lucide-react";
 import { animate, motion, useMotionValue, useTransform } from "motion/react";
-import React, { useEffect, useState } from "react";
-import { Lightbulb } from 'lucide-react';
+import type React from "react";
+import { useEffect, useState } from "react";
 
 interface Visual3Props {
-  mainColor?: string
-  secondaryColor?: string
-  gridColor?: string
-  showLayer1?: boolean
+  mainColor?: string;
+  secondaryColor?: string;
+  gridColor?: string;
+  showLayer1?: boolean;
 }
 
 export function Visual4({
   mainColor = "var(--accent-cyan)",
   secondaryColor = "#fbbf24",
   gridColor = "#80808015",
-  showLayer1 = false
+  showLayer1 = false,
 }: Visual3Props) {
-  const [hovered, setHovered] = useState(false)
+  const [hovered, setHovered] = useState(false);
 
   return (
     <>
@@ -36,16 +37,15 @@ export function Visual4({
       <div className="flex items-center justify-center h-full w-full overflow-hidden">
         <LightBulbLayer color={gridColor} hovered={hovered} />
         <GridLayer color={gridColor} />
-        
       </div>
     </>
-  )
+  );
 }
 
 interface LayerProps {
-  color: string
-  secondaryColor?: string
-  hovered?: boolean
+  color: string;
+  secondaryColor?: string;
+  hovered?: boolean;
 }
 
 const GridLayer: React.FC<{ color: string }> = ({ color }) => {
@@ -54,8 +54,8 @@ const GridLayer: React.FC<{ color: string }> = ({ color }) => {
       style={{ "--grid-color": color } as React.CSSProperties}
       className="pointer-events-none absolute inset-0 z-4 h-full w-full bg-transparent bg-[linear-gradient(to_right,var(--grid-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-color)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)] bg-[size:20px_20px] bg-center opacity-70"
     />
-  )
-}
+  );
+};
 
 const LightBulbLayer: React.FC<LayerProps> = ({ color, hovered }) => {
   const hoverAnimationDuration = 2;
@@ -65,7 +65,7 @@ const LightBulbLayer: React.FC<LayerProps> = ({ color, hovered }) => {
   const beamOpacity = useTransform(progress, [0, 0.08, 1], [0, 1, 1]);
   const bulbClip = useTransform(
     progress,
-    (value) => `inset(${(1 - value) * 100}% 0% 0% 0%)`
+    (value) => `inset(${(1 - value) * 100}% 0% 0% 0%)`,
   );
   const isHovered = Boolean(hovered);
 
@@ -76,13 +76,13 @@ const LightBulbLayer: React.FC<LayerProps> = ({ color, hovered }) => {
     });
 
     return () => controls.stop();
-  }, [hoverAnimationDuration, isHovered, progress]);
+  }, [isHovered, progress]);
 
   return (
-    <div 
+    <div
       className="flex items-center justify-center inset-0 z-5 h-27.5 w-27.5 bg-bg-gradient-primary border rounded-4xl"
       style={{ background: "var(--bg-gradient-primary)" }}
-      >
+    >
       <div className="relative">
         <Lightbulb size={80} className="text-text-muted" />
         <motion.div
@@ -103,46 +103,80 @@ const LightBulbLayer: React.FC<LayerProps> = ({ color, hovered }) => {
         </div>
       </motion.div>
     </div>
-  )
-}
+  );
+};
 
 const Sparkles = () => {
-  const randomMove = () => Math.random() * 2 - 1;
-  const randomOpacity = () => Math.random();
-  const random = () => Math.random();
+  const [sparkles, setSparkles] = useState<
+    Array<{
+      id: string;
+      top: number;
+      left: number;
+      moveX: number;
+      moveY: number;
+      opacity: number;
+      duration: number;
+      delay: number;
+    }>
+  >([]);
+
+  useEffect(() => {
+    const randomMove = () => Math.random() * 2 - 1;
+    const randomOpacity = () => Math.random();
+    const random = () => Math.random();
+
+    setSparkles(
+      Array.from({ length: 12 }, (_, i) => ({
+        id: `star-${i}`,
+        top: random() * 100,
+        left: random() * 100,
+        moveX: randomMove(),
+        moveY: randomMove(),
+        opacity: randomOpacity(),
+        duration: random() * 2 + 4,
+        delay: random(),
+      })),
+    );
+  }, []);
+
+  if (sparkles.length === 0) {
+    return null;
+  }
+
   return (
     <div className="absolute inset-0">
-      {[...Array(12)].map((_, i) => (
+      {sparkles.map((sparkle) => (
         <motion.span
-          key={`star-${i}`}
+          key={sparkle.id}
           animate={{
-            top: `calc(${random() * 100}% + ${randomMove()}px)`,
-            left: `calc(${random() * 100}% + ${randomMove()}px)`,
-            opacity: randomOpacity(),
+            top: `calc(${sparkle.top}% + ${sparkle.moveY}px)`,
+            left: `calc(${sparkle.left}% + ${sparkle.moveX}px)`,
+            opacity: sparkle.opacity,
             scale: [1, 1.2, 0],
           }}
           transition={{
-            duration: random() * 2 + 4,
+            duration: sparkle.duration,
             repeat: Infinity,
             ease: "linear",
+            delay: sparkle.delay,
           }}
           style={{
             position: "absolute",
-            top: `${random() * 100}%`,
-            left: `${random() * 100}%`,
-            width: `2px`,
-            height: `2px`,
+            top: `${sparkle.top}%`,
+            left: `${sparkle.left}%`,
+            width: "2px",
+            height: "2px",
             borderRadius: "50%",
             zIndex: 1,
           }}
           className="inline-block bg-primary"
-        ></motion.span>
+        />
       ))}
     </div>
   );
 };
 
-const EllipseGradient: React.FC<{ color: string }> = ({ color }) => {
+const _EllipseGradient: React.FC<{ color: string }> = ({ color }) => {
   return (
     <div className="absolute inset-0 z-[5] h-full w-full">
       <svg
@@ -169,5 +203,5 @@ const EllipseGradient: React.FC<{ color: string }> = ({ color }) => {
         </defs>
       </svg>
     </div>
-  )
-}
+  );
+};

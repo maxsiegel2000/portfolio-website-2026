@@ -1,13 +1,13 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const LayoutTextFlip = ({
   text = "Build Amazing",
   words = ["Landing Pages", "Component Blocks", "Page Sections", "3D Shaders"],
   duration = 3000,
-  className
+  className,
 }: {
   text: string;
   words: string[];
@@ -23,18 +23,21 @@ export const LayoutTextFlip = ({
     }, duration);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [duration, words.length]);
 
   return (
     <span
       className={cn(
         "inline-flex flex-wrap items-center justify-start",
         hasPrefix ? "gap-2" : "",
-        className
+        className,
       )}
     >
       {hasPrefix ? (
-        <motion.span layoutId="subtext" className="font-bold tracking-tight drop-shadow-lg">
+        <motion.span
+          layoutId="subtext"
+          className="font-bold tracking-tight drop-shadow-lg"
+        >
           {text}
         </motion.span>
       ) : null}

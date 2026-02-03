@@ -18,10 +18,17 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "colorHeadline",
+      title: "The color Part of the Headline",
+      type: "string",
+      description: "E.g., 'Full-Stack'",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "headline",
       title: "Professional Headline",
       type: "string",
-      description: "E.g., 'Full-Stack Developer & AI Engineer'",
+      description: "E.g., 'Developer & AI Engineer'",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -30,7 +37,7 @@ export default defineType({
       type: "string",
       description:
         "The static part of your animated headline (e.g., 'I build')",
-      placeholder: "I build",
+      placeholder: "I create",
     }),
     defineField({
       name: "headlineAnimatedWords",

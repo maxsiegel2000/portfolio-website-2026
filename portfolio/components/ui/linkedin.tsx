@@ -117,7 +117,7 @@ const LinkedinIcon = forwardRef<LinkedinIconHandle, LinkedinIconProps>(
           circleControls.start("animate");
         }
       },
-      [circleControls, onMouseEnter, pathControls, rectControls]
+      [circleControls, onMouseEnter, pathControls, rectControls],
     );
 
     const handleMouseLeave = useCallback(
@@ -130,7 +130,7 @@ const LinkedinIcon = forwardRef<LinkedinIconHandle, LinkedinIconProps>(
           circleControls.start("normal");
         }
       },
-      [pathControls, rectControls, circleControls, onMouseLeave]
+      [pathControls, rectControls, circleControls, onMouseLeave],
     );
 
     return (
@@ -177,7 +177,7 @@ const LinkedinIcon = forwardRef<LinkedinIconHandle, LinkedinIconProps>(
         </svg>
       </div>
     );
-  }
+  },
 );
 
 LinkedinIcon.displayName = "LinkedinIcon";
