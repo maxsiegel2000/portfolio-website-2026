@@ -86,18 +86,20 @@ function HeroSectionClient({ profile }: HeroSectionClientProps) {
                 <p className="text-xl @md/hero:text-2xl @lg/hero:text-3xl text-text-secondary font-medium">
                   {profile.headlineStaticText}
                 </p>
-				{profile.headlineAnimatedWords && profile.headlineAnimationDuration && profile.headlineAnimationDuration > 0 ?(
-					<LayoutTextFlip
-						text={""}
-						words={profile.headlineAnimatedWords}
-						duration={profile.headlineAnimationDuration}
-						className="text-xl @md/hero:text-2xl @lg/hero:text-3xl text-primary font-medium"
-					/>
-				):(
-					<p className="text-xl @md/hero:text-2xl @l/hero:text-3xl text-muted font-medium">
-						{profile.headline}
-					</p>
-				)}
+                {profile.headlineAnimatedWords &&
+                profile.headlineAnimationDuration &&
+                profile.headlineAnimationDuration > 0 ? (
+                  <LayoutTextFlip
+                    text={""}
+                    words={profile.headlineAnimatedWords}
+                    duration={profile.headlineAnimationDuration}
+                    className="text-xl @md/hero:text-2xl @lg/hero:text-3xl text-primary font-medium"
+                  />
+                ) : (
+                  <p className="text-xl @md/hero:text-2xl @l/hero:text-3xl text-muted font-medium">
+                    {profile.headline}
+                  </p>
+                )}
               </div>
               {/* Social Links */}
               {profile.socialLinks ? (
@@ -108,8 +110,12 @@ function HeroSectionClient({ profile }: HeroSectionClientProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex gap-2 items-center px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg border bg-background hover:bg-accent transition-colors text-sm @md/hero:text-base"
-                      onMouseEnter={() => githubIconRef.current?.startAnimation()}
-                      onMouseLeave={() => githubIconRef.current?.stopAnimation()}
+                      onMouseEnter={() =>
+                        githubIconRef.current?.startAnimation()
+                      }
+                      onMouseLeave={() =>
+                        githubIconRef.current?.stopAnimation()
+                      }
                     >
                       GitHub
                       <GithubIcon ref={githubIconRef} size={20} />
@@ -121,8 +127,12 @@ function HeroSectionClient({ profile }: HeroSectionClientProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex gap-2 items-center px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg border bg-background hover:bg-accent transition-colors text-sm @md/hero:text-base"
-                      onMouseEnter={() => linkedInIconRef.current?.startAnimation()}
-                      onMouseLeave={() => linkedInIconRef.current?.stopAnimation()}
+                      onMouseEnter={() =>
+                        linkedInIconRef.current?.startAnimation()
+                      }
+                      onMouseLeave={() =>
+                        linkedInIconRef.current?.stopAnimation()
+                      }
                     >
                       Linkedin
                       <LinkedinIcon ref={linkedInIconRef} size={18} />
@@ -130,105 +140,109 @@ function HeroSectionClient({ profile }: HeroSectionClientProps) {
                   )}
                 </div>
               ) : null}
-              
+
               <div className="flex flex-wrap gap-4 @md/hero:gap-6 pt-4 text-xs @md/hero:text-sm text-muted-foreground">
-				{profile.email && (
-					<button
-					type="button"
-					className="relative flex items-center gap-2 cursor-pointer hover:text-foreground transition-colors"
-					title="Copy email"
-					onMouseEnter={() => {
-						if (isEmailCopied) {
-						copyIconRef.current?.startAnimation();
-						} else {
-						mailCheckIconRef.current?.startAnimation();
-						}
-					}}
-					onMouseLeave={() => {
-						if (isEmailCopied) {
-						copyIconRef.current?.stopAnimation();
-						} else {
-						mailCheckIconRef.current?.stopAnimation();
-						}
-					}}
-					onClick={() => {
-						if (!profile.email) { return; }
-						navigator.clipboard?.writeText(profile.email);
-						setIsEmailCopied(true);
-						copyIconRef.current?.startAnimation();
-						setShowEmailCopiedTooltip(true);
-						if (emailCopyTimeoutRef.current) {
-						clearTimeout(emailCopyTimeoutRef.current);
-						}
-						emailCopyTimeoutRef.current = setTimeout(() => {
-						setShowEmailCopiedTooltip(false);
-						}, 1400);
-					}}
-					>
-					<span className="relative size-5 pointer-events-none">
-						<span
-						className={`pointer-events-none absolute inset-0 transition-all duration-200 ease-in-out ${
-							isEmailCopied
-							? "opacity-0 scale-90"
-							: "opacity-100 scale-100"
-						}`}
-						>
-						<MailCheckIcon
-							ref={mailCheckIconRef}
-							size={20}
-							className="pointer-events-none"
-						/>
-						</span>
-						<span
-						className={`pointer-events-none absolute inset-0 transition-all duration-200 ease-in-out ${
-							isEmailCopied
-							? "opacity-100 scale-100"
-							: "opacity-0 scale-90"
-						}`}
-						>
-						<CopyIcon
-							ref={copyIconRef}
-							size={20}
-							className="pointer-events-none"
-						/>
-						</span>
-					</span>
-					<span className="truncate pointer-events-none">{profile.email}</span>
-					<span
-						className={`pointer-events-none absolute -top-6 left-0 rounded-md border border-border bg-background px-2 py-1 text-[10px] text-foreground shadow-sm transition-all ${
-						showEmailCopiedTooltip
-							? "opacity-100 translate-y-0"
-							: "opacity-0 -translate-y-1"
-						}`}
-					>
-						Copied!
-					</span>
-					</button>
-				)}
+                {profile.email && (
+                  <button
+                    type="button"
+                    className="relative flex items-center gap-2 cursor-pointer hover:text-foreground transition-colors"
+                    title="Copy email"
+                    onMouseEnter={() => {
+                      if (isEmailCopied) {
+                        copyIconRef.current?.startAnimation();
+                      } else {
+                        mailCheckIconRef.current?.startAnimation();
+                      }
+                    }}
+                    onMouseLeave={() => {
+                      if (isEmailCopied) {
+                        copyIconRef.current?.stopAnimation();
+                      } else {
+                        mailCheckIconRef.current?.stopAnimation();
+                      }
+                    }}
+                    onClick={() => {
+                      if (!profile.email) {
+                        return;
+                      }
+                      navigator.clipboard?.writeText(profile.email);
+                      setIsEmailCopied(true);
+                      copyIconRef.current?.startAnimation();
+                      setShowEmailCopiedTooltip(true);
+                      if (emailCopyTimeoutRef.current) {
+                        clearTimeout(emailCopyTimeoutRef.current);
+                      }
+                      emailCopyTimeoutRef.current = setTimeout(() => {
+                        setShowEmailCopiedTooltip(false);
+                      }, 1400);
+                    }}
+                  >
+                    <span className="relative size-5 pointer-events-none">
+                      <span
+                        className={`pointer-events-none absolute inset-0 transition-all duration-200 ease-in-out ${
+                          isEmailCopied
+                            ? "opacity-0 scale-90"
+                            : "opacity-100 scale-100"
+                        }`}
+                      >
+                        <MailCheckIcon
+                          ref={mailCheckIconRef}
+                          size={20}
+                          className="pointer-events-none"
+                        />
+                      </span>
+                      <span
+                        className={`pointer-events-none absolute inset-0 transition-all duration-200 ease-in-out ${
+                          isEmailCopied
+                            ? "opacity-100 scale-100"
+                            : "opacity-0 scale-90"
+                        }`}
+                      >
+                        <CopyIcon
+                          ref={copyIconRef}
+                          size={20}
+                          className="pointer-events-none"
+                        />
+                      </span>
+                    </span>
+                    <span className="truncate pointer-events-none">
+                      {profile.email}
+                    </span>
+                    <span
+                      className={`pointer-events-none absolute -top-6 left-0 rounded-md border border-border bg-background px-2 py-1 text-[10px] text-foreground shadow-sm transition-all ${
+                        showEmailCopiedTooltip
+                          ? "opacity-100 translate-y-0"
+                          : "opacity-0 -translate-y-1"
+                      }`}
+                    >
+                      Copied!
+                    </span>
+                  </button>
+                )}
                 {profile.location && (
-					<div className="flex items-center gap-2">
-						<MapPinIcon ref={mapPinIconRef} size={20} />
-						<span>{profile.location}</span>
-					</div>
-				)}
+                  <div className="flex items-center gap-2">
+                    <MapPinIcon ref={mapPinIconRef} size={20} />
+                    <span>{profile.location}</span>
+                  </div>
+                )}
                 {profile.availability && (
-					<div className="flex items-center gap-2">
-						<div className="bg-green-500 size-2.5 rounded-full relative">
-							<div className="bg-green-500 absolute inset-0 rounded-full animate-ping-large"></div>
-						</div>
-						<span>{profile.availability}</span>
-					</div>
-				)}
+                  <div className="flex items-center gap-2">
+                    <div className="bg-green-500 size-2.5 rounded-full relative">
+                      <div className="bg-green-500 absolute inset-0 rounded-full animate-ping-large"></div>
+                    </div>
+                    <span>{profile.availability}</span>
+                  </div>
+                )}
               </div>
             </div>
             {/* Profile Image */}
             {profile.profileImage && (
-				<ProfileImage 
-					imageUrl={urlFor(profile.profileImage).url()}
-					firstName={profile.firstName || ""}
-					lastName={profile.lastName || ""}
-				/>
-			)}
+              <ProfileImage
+                imageUrl={urlFor(profile.profileImage).url()}
+                firstName={profile.firstName || ""}
+                lastName={profile.lastName || ""}
+              />
+            )}
           </div>
         </div>
       </div>

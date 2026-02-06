@@ -12,7 +12,7 @@ import { Visual4 } from "../ui/visual-4";
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-20 px-6">
+    <section id="about" className="pt-20 px-6">
       <div className="container mx-auto max-w-4xl">
         <div className="flex flex-col items-center justify-center gap-2 mb-12">
           <StarButton className="rounded-xl">
@@ -23,7 +23,7 @@ const AboutSection = () => {
           </p>
         </div>
       </div>
-      <div className="relative mx-auto w-full -translate-y-55 md:-translate-y-65">
+      <div className="relative mx-auto w-full -mt-60">
         <div className="flex flex-col items-center justify-center gap-4">
           {/* First Ghost Row on Top */}
           <div className="flex flex-row w-full items-center justify-center gap-4 opacity-75">
@@ -92,36 +92,6 @@ const AboutSection = () => {
 					<AnimatedCard className="absolute right-0 -translate-x-[calc(-71%+1rem)] bottom-0" /> */}
         </div>
       </div>
-
-      {/* <LampContainer>
-				<motion.h6
-					initial={{ opacity: 0.5, y: 100 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					transition={{
-					delay: 0.3,
-					duration: 0.8,
-					ease: "easeInOut",
-					}}
-					className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent"
-				>
-					From ideas to products
-				</motion.h6>
-			</LampContainer> */}
-      {/* <BentoGrid>
-				{gridItems.map(({id, title, description, className, img, imgClassName, titleClassName, spareImg}) => (
-						<BentoGridItem 
-							id={id}
-							key={id}
-							title={title}
-							description={description}
-							className={className}
-							img={img}
-							imgClassName={imgClassName}
-							titleClassName={titleClassName}
-							spareImg={spareImg}
-						/>
-					))}
-			</BentoGrid> */}
     </section>
   );
 };

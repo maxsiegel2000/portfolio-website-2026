@@ -300,6 +300,6 @@
 }
 
 .mask-bot-right-fade {
-  -webkit-mask-image: linear-gradient(to bottom right, #0A0D12 0%, transparent 60%);
-  mask-image: linear-gradient(to bottom right, #0A0D12 0%, transparent 60%);
+  -webkit-mask-image: linear-gradient(to bottom right, transparent 60%, #0A0D12 100%);
+  mask-image: linear-gradient(to bottom right, transparent 60%, #0A0D12 100%);
 }

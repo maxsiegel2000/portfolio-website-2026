@@ -1,15 +1,11 @@
-"use client"
+"use client";
 
-import { createSession } from '@/actions/create-session';
-import { CHAT_PROFILE_QUERY_RESULT } from '@/sanity.types';
-import { ChatKit, useChatKit } from '@openai/chatkit-react';
-import { useSidebar } from '../ui/sidebar';
+import { createSession } from "@/actions/create-session";
+import { CHAT_PROFILE_QUERY_RESULT } from "@/sanity.types";
+import { ChatKit, useChatKit } from "@openai/chatkit-react";
+import { useSidebar } from "../ui/sidebar";
 
-function Chat({
-	profile,
-}: {
-	profile: CHAT_PROFILE_QUERY_RESULT | null;
-}) {
+function Chat({ profile }: { profile: CHAT_PROFILE_QUERY_RESULT | null }) {
   const { toggleSidebar } = useSidebar();
   // Generate greeting based on available profile data
   const getGreeting = () => {
@@ -26,90 +22,89 @@ function Chat({
   };
 
   const { control } = useChatKit({
-       api: {
-         async getClientSecret() {
-           return await createSession()
-         },
-       },
-	   theme: {
-		colorScheme: "dark",
-		color: {
-			accent: {
-				primary: '#35BAE7',
-				level: 1
-			},
-			surface: {
-				background: '#13161D',
-				foreground: '#1E222B'
-      }
-		}
-	   },
-	   header:{
-		title: {
-			text: `Chat with ${profile?.firstName || "Me"} `,
-		},
-		leftAction:{
-			icon: "close",
-			onClick: () => {
-				toggleSidebar()
-			}
-		}
-	   },
-	    startScreen: {
-			greeting: getGreeting(),
-			prompts: [
-				{
-				icon: "suitcase",
-				label: "What's your experience?",
-				prompt:
-					"Tell me about your professional experience and previous roles",
-				},
-				{
-				icon: "square-code",
-				label: "What skills do you have?",
-				prompt:
-					"What technologies and programming languages do you specialize in?",
-				},
-				{
-				icon: "cube",
-				label: "What have you built?",
-				prompt: "Show me some of your most interesting projects",
-				},
-				{
-				icon: "profile",
-				label: "Who are you?",
-				prompt: "Tell me more about yourself and your background",
-				},
-			],
-		},
+    api: {
+      async getClientSecret() {
+        return await createSession();
+      },
+    },
+    theme: {
+      colorScheme: "dark",
+      color: {
+        accent: {
+          primary: "#35BAE7",
+          level: 1,
+        },
+        surface: {
+          background: "#13161D",
+          foreground: "#1E222B",
+        },
+      },
+    },
+    header: {
+      title: {
+        text: `Chat with ${profile?.firstName || "Me"} `,
+      },
+      leftAction: {
+        icon: "close",
+        onClick: () => {
+          toggleSidebar();
+        },
+      },
+    },
+    startScreen: {
+      greeting: getGreeting(),
+      prompts: [
+        {
+          icon: "suitcase",
+          label: "What's your experience?",
+          prompt:
+            "Tell me about your professional experience and previous roles",
+        },
+        {
+          icon: "square-code",
+          label: "What skills do you have?",
+          prompt:
+            "What technologies and programming languages do you specialize in?",
+        },
+        {
+          icon: "cube",
+          label: "What have you built?",
+          prompt: "Show me some of your most interesting projects",
+        },
+        {
+          icon: "profile",
+          label: "Who are you?",
+          prompt: "Tell me more about yourself and your background",
+        },
+      ],
+    },
 
-		composer: {
-			models: [
-				{
-				id: "crisp",
-				label: "Crisp",
-				description: "Concise and factual",
-				},
-				{
-				id: "clear",
-				label: "Clear",
-				description: "Focused and helpful",
-				},
-				{
-				id: "chatty",
-				label: "Chatty",
-				description: "Conversational companion",
-				},
-			],
-		},
+    composer: {
+      models: [
+        {
+          id: "crisp",
+          label: "Crisp",
+          description: "Concise and factual",
+        },
+        {
+          id: "clear",
+          label: "Clear",
+          description: "Focused and helpful",
+        },
+        {
+          id: "chatty",
+          label: "Chatty",
+          description: "Conversational companion",
+        },
+      ],
+    },
 
-		disclaimer: {
-			text: "Disclaimer: This is my AI-powered twin. It may not be 100% accurate and should be verified for accuracy.",
-		},
-     });
-     
-	 
-	 return <ChatKit control={control} className="h-full w-full z-50" />
+    disclaimer: {
+      text: "Disclaimer: This is my AI-powered twin. It may not be 100% accurate and should be verified for accuracy.",
+    },
+  });
+
+  return <ChatKit control={control} className="h-full w-full z-50" />;
 }
 
-export default Chat
+export default Chat;

@@ -1,7 +1,7 @@
-"use server"
+"use server";
 
-import { auth } from "@clerk/nextjs/server"
-import { WORKFLOW_ID } from "@/lib/config"
+import { auth } from "@clerk/nextjs/server";
+import { WORKFLOW_ID } from "@/lib/config";
 
 export async function createSession() {
   const { userId } = await auth();

@@ -39,10 +39,8 @@ export default function RootLayout({
             strategy="afterInteractive"
           />
           <SidebarProvider>
-            <SidebarInset>
-              {children}
-            </SidebarInset>
-            <AppSidebar side="right"/>
+            <SidebarInset>{children}</SidebarInset>
+            <AppSidebar side="right" />
             <SidebarToggle />
           </SidebarProvider>
           <SanityLive />
