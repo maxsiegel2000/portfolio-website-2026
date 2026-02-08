@@ -240,23 +240,10 @@ export type Skill = {
   _updatedAt: string;
   _rev: string;
   name?: string;
-  category?:
-    | "frontend"
-    | "backend"
-    | "ai-ml"
-    | "devops"
-    | "database"
-    | "mobile"
-    | "cloud"
-    | "testing"
-    | "design"
-    | "tools"
-    | "soft-skills"
-    | "other";
+  category?: "frontend" | "backend" | string | "ai-ml";
   proficiency?: "beginner" | "intermediate" | "advanced" | "expert";
   percentage?: number;
   yearsOfExperience?: number;
-  color?: string;
 };
 
 export type Project = {
@@ -364,12 +351,7 @@ export type Profile = {
   socialLinks?: {
     github?: string;
     linkedin?: string;
-    twitter?: string;
     website?: string;
-    medium?: string;
-    devto?: string;
-    youtube?: string;
-    stackoverflow?: string;
   };
   yearsOfExperience?: number;
   stats?: Array<{
@@ -597,12 +579,7 @@ export type CHAT_PROFILE_QUERY_RESULT =
       socialLinks: {
         github?: string;
         linkedin?: string;
-        twitter?: string;
         website?: string;
-        medium?: string;
-        devto?: string;
-        youtube?: string;
-        stackoverflow?: string;
       } | null;
       yearsOfExperience: number | null;
       profileImage: {
@@ -711,6 +688,50 @@ export type CHAT_PROFILE_QUERY_RESULT =
     }
   | null;
 
+// Source: components/dock/FloatingDock.tsx
+// Variable: NAVIGATION_QUERY
+// Query: *[_type == "navigation"] | order(order asc){  title,  href,  icon,  isExternal}
+export type NAVIGATION_QUERY_RESULT = Array<{
+  title: string | null;
+  href: string | null;
+  icon: string | null;
+  isExternal: boolean | null;
+}>;
+
+// Source: components/sections/ContactSection.tsx
+// Variable: PROFILE_QUERY
+// Query: *[_id == "singleton-profile"][0]{  email,  phone,  location,  socialLinks}
+export type PROFILE_QUERY_RESULT =
+  | {
+      email: null;
+      phone: null;
+      location: null;
+      socialLinks: null;
+    }
+  | {
+      email: null;
+      phone: null;
+      location: string | null;
+      socialLinks: null;
+    }
+  | {
+      email: string | null;
+      phone: null;
+      location: null;
+      socialLinks: null;
+    }
+  | {
+      email: string | null;
+      phone: string | null;
+      location: string | null;
+      socialLinks: {
+        github?: string;
+        linkedin?: string;
+        website?: string;
+      } | null;
+    }
+  | null;
+
 // Source: components/sections/HeroSection.tsx
 // Variable: HERO_QUERY
 // Query: *[_id == "singleton-profile"][0]{		firstName,		lastName,		headline,		colorHeadline,		headlineStaticText,		headlineAnimatedWords,		headlineAnimationDuration,		shortBio,		email,		phone,		location,		availability,		socialLinks,		yearsOfExperience,		profileImage	}
@@ -799,12 +820,7 @@ export type HERO_QUERY_RESULT =
       socialLinks: {
         github?: string;
         linkedin?: string;
-        twitter?: string;
         website?: string;
-        medium?: string;
-        devto?: string;
-        youtube?: string;
-        stackoverflow?: string;
       } | null;
       yearsOfExperience: number | null;
       profileImage: {
@@ -828,6 +844,8 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_id == "singleton-profile"][0]{\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    firstName,\n    lastName,\n    headline,\n    shortBio,\n    email,\n    phone,\n    location,\n    availability,\n    socialLinks,\n    yearsOfExperience,\n    profileImage\n  }': CHAT_PROFILE_QUERY_RESULT;
+    '*[_type == "navigation"] | order(order asc){\n  title,\n  href,\n  icon,\n  isExternal\n}': NAVIGATION_QUERY_RESULT;
+    '*[_id == "singleton-profile"][0]{\n  email,\n  phone,\n  location,\n  socialLinks\n}': PROFILE_QUERY_RESULT;
     '*[_id == "singleton-profile"][0]{\n\t\tfirstName,\n\t\tlastName,\n\t\theadline,\n\t\tcolorHeadline,\n\t\theadlineStaticText,\n\t\theadlineAnimatedWords,\n\t\theadlineAnimationDuration,\n\t\tshortBio,\n\t\temail,\n\t\tphone,\n\t\tlocation,\n\t\tavailability,\n\t\tsocialLinks,\n\t\tyearsOfExperience,\n\t\tprofileImage\n\t}': HERO_QUERY_RESULT;
   }
 }

@@ -11,11 +11,14 @@ import skill from "./skill";
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     profile,
-    project,
+    contact,
     skill,
+
+    project,
+
     experience,
     education,
-    contact,
+
     siteSettings,
     navigation,
   ],

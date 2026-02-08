@@ -1440,44 +1440,11 @@
               "value": "backend"
             },
             {
+              "type": "string"
+            },
+            {
               "type": "string",
               "value": "ai-ml"
-            },
-            {
-              "type": "string",
-              "value": "devops"
-            },
-            {
-              "type": "string",
-              "value": "database"
-            },
-            {
-              "type": "string",
-              "value": "mobile"
-            },
-            {
-              "type": "string",
-              "value": "cloud"
-            },
-            {
-              "type": "string",
-              "value": "testing"
-            },
-            {
-              "type": "string",
-              "value": "design"
-            },
-            {
-              "type": "string",
-              "value": "tools"
-            },
-            {
-              "type": "string",
-              "value": "soft-skills"
-            },
-            {
-              "type": "string",
-              "value": "other"
             }
           ]
         },
@@ -1519,13 +1486,6 @@
         "type": "objectAttribute",
         "value": {
           "type": "number"
-        },
-        "optional": true
-      },
-      "color": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
         },
         "optional": true
       }
@@ -2231,42 +2191,7 @@
               },
               "optional": true
             },
-            "twitter": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
             "website": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
-            "medium": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
-            "devto": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
-            "youtube": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
-            "stackoverflow": {
               "type": "objectAttribute",
               "value": {
                 "type": "string"

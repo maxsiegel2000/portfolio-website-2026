@@ -55,10 +55,7 @@ export function ContactSectionClient() {
         className="text-4xl sm:text-6xl md:text-7xl font-bold mb-8 tracking-tight"
         variants={fadeInUp}
       >
-        <span className="bg-clip-text text-transparent bg-linear-to-r from-white to-white/80">
-          Get in 
-        </span>
-        {" "}
+        <span>Get in</span>{" "}
         <GradientText
           animationSpeed={3}
           className="inline-flex! items-baseline! font-bold! bg-bg-gradient-primary"
