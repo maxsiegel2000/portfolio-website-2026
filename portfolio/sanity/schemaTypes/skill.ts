@@ -17,10 +17,10 @@ export default defineType({
       type: "string",
       options: {
         list: [
-          { title: "Frontend & API's", value: "frontend" },
-          { title: "Backend", value: "backend" },
-          { title: "Tools & Others", value: "tools" },
-          { title: "AI/ML", value: "ai-ml" },
+          { title: "Frontend", value: "Frontend" },
+          { title: "Backend", value: "Backend" },
+          { title: "Tools & Others", value: "Tools" },
+          { title: "AI/ML", value: "Ai-Ml" },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -31,10 +31,10 @@ export default defineType({
       type: "string",
       options: {
         list: [
-          { title: "Beginner", value: "beginner" },
-          { title: "Intermediate", value: "intermediate" },
-          { title: "Advanced", value: "advanced" },
-          { title: "Expert", value: "expert" },
+          { title: "Beginner", value: "Beginner" },
+          { title: "Intermediate", value: "Intermediate" },
+          { title: "Advanced", value: "Advanced" },
+          { title: "Expert", value: "Expert" },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -51,6 +51,20 @@ export default defineType({
       title: "Years of Experience",
       type: "number",
       validation: (Rule) => Rule.min(0),
+    }),
+    defineField({
+      name: "color",
+      title: "Color",
+      type: "string",
+      description:
+        "Hex color from light to dark (Beginner to Expert)",
+    }),
+    defineField({
+      name: "icon",
+      title: "Icon",
+      type: "string",
+      description:
+        "Name of the Icon",
     }),
   ],
   preview: {
