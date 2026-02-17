@@ -14,6 +14,7 @@ import * as TfiIcons from "react-icons/tfi";
 import * as AiIcons from "react-icons/ai";
 import * as BiIcons from "react-icons/bi";
 import FadeIn from "../animations/FadeIn";
+import SectionHeader from "./SectionHeader";
 
 interface Skill {
   name: string | null;
@@ -144,43 +145,46 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-20">
-      {/* Tech Stack */}
-      <FadeIn delay={400}>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 w-full mx-auto">
-          {stack.map((item) => (
-            <div
-              key={item.name}
-              className="group relative bg-[#1e222b] hover:bg-linear-to-br from-[#35bae7]/20 to-[#204fd7]/20 border hover:border-[#35bae7]/50 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:drop-shadow-[0_0_16px_rgba(53,186,231,0.3)]"
-            >
-              <item.icon className="text-3xl text-[#7aecf5]" />
-              <p className="text-sm group-hover:text-md text-primary/80 font-medium text-center group-hover:text-primary transition-all duration-300">
-                {item.name}
-              </p>
-            </div>
-          ))}
-        </div>
-      </FadeIn>
+    <>
+      <SectionHeader header="Skills & "animatedHeader="Technologies" pillText="My Expertise" pillIcon="tool" describtion="A comprehensive overview of my technical skills and proficiency levels."/>
+      <div className="flex flex-col items-center justify-center gap-20">
+        {/* Tech Stack */}
+        <FadeIn delay={400}>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 w-full mx-auto">
+            {stack.map((item) => (
+              <div
+                key={item.name}
+                className="group relative bg-[#1e222b] hover:bg-linear-to-br from-[#35bae7]/20 to-[#204fd7]/20 border hover:border-[#35bae7]/50 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:drop-shadow-[0_0_16px_rgba(53,186,231,0.3)]"
+              >
+                <item.icon className="text-3xl text-[#7aecf5]" />
+                <p className="text-sm group-hover:text-md text-primary/80 font-medium text-center group-hover:text-primary transition-all duration-300">
+                  {item.name}
+                </p>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
 
-      {/* Skill Section Grid*/}
-      <FadeIn delay={500} className="w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[auto_auto] gap-6 items-start md:items-stretch lg:items-start w-full max-w-300 mx-auto">
-          {renderCategoryCard(
-            "Frontend",
-            frontendSkills,
-            "lg:row-span-2 lg:self-stretch lg:min-h-0 lg:overflow-hidden",
-            "lg:flex-1 lg:min-h-0 lg:overflow-auto"
-          )}
-          {renderCategoryCard(
-            "Backend",
-            backendSkills,
-            "lg:row-span-2 lg:self-stretch lg:min-h-0 lg:overflow-hidden",
-            "lg:flex-1 lg:min-h-0 lg:overflow-auto"
-          )}
-          {renderCategoryCard("Tools", toolsSkills, "lg:col-start-3 lg:row-start-1")}
-          {renderCategoryCard("Ai-Ml", aiSkills, "lg:col-start-3 lg:row-start-2")}
-        </div>
-      </FadeIn>
-    </div>
+        {/* Skill Section Grid*/}
+        <FadeIn delay={500} className="w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[auto_auto] gap-6 items-start md:items-stretch lg:items-start w-full max-w-300 mx-auto">
+            {renderCategoryCard(
+              "Frontend",
+              frontendSkills,
+              "lg:row-span-2 lg:self-stretch lg:min-h-0 lg:overflow-hidden",
+              "lg:flex-1 lg:min-h-0 lg:overflow-auto"
+            )}
+            {renderCategoryCard(
+              "Backend",
+              backendSkills,
+              "lg:row-span-2 lg:self-stretch lg:min-h-0 lg:overflow-hidden",
+              "lg:flex-1 lg:min-h-0 lg:overflow-auto"
+            )}
+            {renderCategoryCard("Tools", toolsSkills, "lg:col-start-3 lg:row-start-1")}
+            {renderCategoryCard("Ai-Ml", aiSkills, "lg:col-start-3 lg:row-start-2")}
+          </div>
+        </FadeIn>
+      </div>
+    </>
   );
 }

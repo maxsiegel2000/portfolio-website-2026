@@ -6,24 +6,23 @@ import {
   CardTitle,
   CardVisual,
 } from "../ui/animated-card";
-import { StarButton } from "../ui/star-button";
 import { Visual3 } from "../ui/visual-3";
 import { Visual4 } from "../ui/visual-4";
+import SectionHeader from "./SectionHeader";
 
 const AboutSection = () => {
   return (
     <section id="about" className="pt-20 px-6">
-      <div className="container mx-auto max-w-4xl">
-        <div className="flex flex-col items-center justify-center gap-2 mb-12">
-          <StarButton className="rounded-xl">
-            <h2 className="text-4xl md:text-5xl font-bold">About Me</h2>
-          </StarButton>
-          <p className="text-xl text-text-secondary z-10">
-            Get to know me better.
-          </p>
-        </div>
+      <div className="relative z-20">
+        <SectionHeader
+          header="About "
+          animatedHeader="Me"
+          describtion="Get to know me better."
+          pillText="Engineer Behind the Code"
+          pillIcon="bot"
+        />
       </div>
-      <div className="relative mx-auto w-full -mt-60">
+      <div className="relative z-0 mx-auto w-full -mt-80">
         <div className="flex flex-col items-center justify-center gap-4">
           {/* First Ghost Row on Top */}
           <div className="flex flex-row w-full items-center justify-center gap-4 opacity-75">

@@ -14,7 +14,7 @@ export default function GradientText({
   animationSpeed = 8,
   showBorder = false,
   direction = "horizontal",
-  pauseOnHover = false,
+  pauseOnHover = true,
   yoyo = true,
 }) {
   const [isPaused, setIsPaused] = useState(false);

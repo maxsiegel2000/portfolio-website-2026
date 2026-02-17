@@ -1,21 +1,22 @@
 .animated-gradient-text {
   position: relative;
   margin: 0;
-  display: inline-flex;
+  display: inline-block;
   max-width: fit-content;
+  line-height: inherit;
+}
+
+.animated-gradient-text.with-border {
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  padding: 0.35rem 0.75rem;
   border-radius: 1.25rem;
-  font-weight: 500;
   backdrop-filter: blur(10px);
   transition: box-shadow 0.5s ease-out;
   overflow: hidden;
   cursor: pointer;
-}
-
-.animated-gradient-text.with-border {
-  padding: 0.35rem 0.75rem;
 }
 
 .gradient-overlay {
@@ -48,6 +49,8 @@
   display: inline-block;
   position: relative;
   z-index: 2;
+  line-height: inherit;
+  padding-bottom: 0.08em;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
