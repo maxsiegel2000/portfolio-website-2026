@@ -15,6 +15,7 @@ import * as AiIcons from "react-icons/ai";
 import * as BiIcons from "react-icons/bi";
 import FadeIn from "../animations/FadeIn";
 import SectionHeader from "./SectionHeader";
+import { RevealGroup, RevealItem } from "../animations/reveal";
 
 interface Skill {
   name: string | null;
@@ -147,9 +148,9 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
   return (
     <>
       <SectionHeader header="Skills & "animatedHeader="Technologies" pillText="My Expertise" pillIcon="tool" describtion="A comprehensive overview of my technical skills and proficiency levels."/>
-      <div className="flex flex-col items-center justify-center gap-20">
+      <RevealGroup className="flex flex-col items-center justify-center gap-14">
         {/* Tech Stack */}
-        <FadeIn delay={400}>
+        <RevealItem preset="scaleIn">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 w-full mx-auto">
             {stack.map((item) => (
               <div
@@ -163,28 +164,29 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
               </div>
             ))}
           </div>
-        </FadeIn>
-
+        </RevealItem>
         {/* Skill Section Grid*/}
-        <FadeIn delay={500} className="w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[auto_auto] gap-6 items-start md:items-stretch lg:items-start w-full max-w-300 mx-auto">
+        <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[auto_auto] gap-4 items-start md:items-stretch lg:items-start w-full max-w-300 mx-auto">
+          <RevealItem preset="slideLeft" distance={100} className="lg:row-span-2 lg:self-stretch lg:min-h-0">
             {renderCategoryCard(
-              "Frontend",
-              frontendSkills,
-              "lg:row-span-2 lg:self-stretch lg:min-h-0 lg:overflow-hidden",
-              "lg:flex-1 lg:min-h-0 lg:overflow-auto"
-            )}
+                "Frontend",
+                frontendSkills,
+              )}
+          </RevealItem>
+          <RevealItem preset="fadeUp" distance={100} className="lg:row-span-2 lg:self-stretch lg:min-h-0">
             {renderCategoryCard(
-              "Backend",
-              backendSkills,
-              "lg:row-span-2 lg:self-stretch lg:min-h-0 lg:overflow-hidden",
-              "lg:flex-1 lg:min-h-0 lg:overflow-auto"
-            )}
-            {renderCategoryCard("Tools", toolsSkills, "lg:col-start-3 lg:row-start-1")}
-            {renderCategoryCard("Ai-Ml", aiSkills, "lg:col-start-3 lg:row-start-2")}
-          </div>
-        </FadeIn>
-      </div>
+                "Backend",
+                backendSkills,
+              )}
+          </RevealItem>
+          <RevealItem preset="slideRight" distance={100} className="lg:col-start-3 lg:row-start-1">
+            {renderCategoryCard("Tools", toolsSkills)}
+          </RevealItem>
+          <RevealItem preset="slideRight" distance={100} className="lg:col-start-3 lg:row-start-2">
+             {renderCategoryCard("Ai-Ml", aiSkills)}
+          </RevealItem>
+        </RevealGroup>
+      </RevealGroup>
     </>
   );
 }
