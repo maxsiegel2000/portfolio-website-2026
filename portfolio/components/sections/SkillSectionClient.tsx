@@ -13,9 +13,10 @@ import * as TbIcons from "react-icons/tb";
 import * as TfiIcons from "react-icons/tfi";
 import * as AiIcons from "react-icons/ai";
 import * as BiIcons from "react-icons/bi";
-import FadeIn from "../animations/FadeIn";
 import SectionHeader from "./SectionHeader";
 import { RevealGroup, RevealItem } from "../animations/reveal";
+import { motion } from "framer-motion"
+import { useState } from "react";
 
 interface Skill {
   name: string | null;
@@ -32,6 +33,7 @@ interface SkillsChartProps {
 }
 
 export function SkillSectionClient({ skills }: SkillsChartProps) {
+  const [barsReady, setBarsReady] = useState(false);
   if (!skills || skills.length === 0) {
     return null;
   }
@@ -58,6 +60,7 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
 
+
     return (
       <div
         key={category}
@@ -69,7 +72,7 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
           </div>
         </div>
         <div className={`space-y-5 ${listClassName}`}>
-          {categorySkills.map((skill) => {
+          {categorySkills.map((skill, index) => {
             const color = skill.color ?? "#7aecf5";
             const Icon = getSkillIcon(skill.icon);
             return (
@@ -103,10 +106,12 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
                   </span>
                 </div>
                 <div className="relative h-1.5 bg-white/5 rounded-full overflow-hidden">
-                  <div
-                    className="absolute top-0 left-0 h-full bg-linear-to-r from-[#35bae7] to-[#204fd7] rounded-full transition-all duration-1000 ease-out"
-                    style={{ width: `${skill.percentage}%` }}
-                  ></div>
+                  <motion.div
+                    className="absolute top-0 left-0 h-full bg-linear-to-r from-[#35bae7] to-[#204fd7] rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: barsReady ? `${skill.percentage ?? 0}%` : "0%" }}
+                    transition={{ duration: 1, ease: "easeOut", delay: 0.1 + index * 0.08 }}
+                  />
                 </div>
               </div>
             );
@@ -148,7 +153,12 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
   return (
     <>
       <SectionHeader header="Skills & "animatedHeader="Technologies" pillText="My Expertise" pillIcon="tool" describtion="A comprehensive overview of my technical skills and proficiency levels."/>
-      <RevealGroup className="flex flex-col items-center justify-center gap-14">
+      <RevealGroup 
+        className="flex flex-col items-center justify-center gap-14"
+        onAnimationComplete={(definition) => {
+          if (definition === "visible") setBarsReady(true);
+        }}
+      >
         {/* Tech Stack */}
         <RevealItem preset="scaleIn">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 w-full mx-auto">

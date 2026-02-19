@@ -1,67 +1,74 @@
-"use client"
+"use client";
 
-import { type HTMLMotionProps, motion, type Variants } from "framer-motion"
+import { type HTMLMotionProps, motion, type Variants } from "framer-motion";
 
-type RevealPreset = "fadeUp" | "fadeIn" | "slideLeft" | "slideRight" | "scaleIn"
+type RevealPreset =
+  | "fadeUp"
+  | "fadeIn"
+  | "slideLeft"
+  | "slideRight"
+  | "scaleIn";
 
-type TimeInput = number
+type TimeInput = number;
 
-const DEFAULT_EASE = [0.23, 0.86, 0.39, 0.96] as const
+const DEFAULT_EASE = [0.23, 0.86, 0.39, 0.96] as const;
 
-const toSeconds = (value: number) => (value > 10 ? value / 1000: value)
+const toSeconds = (value: number) => (value > 10 ? value / 1000 : value);
 
 type BaseRevealProps = {
-	preset?: RevealPreset
-	distance?: number
-	scaleFrom?: number
-	duration?: TimeInput
-	delay?: number
-	ease?: HTMLMotionProps<"div">["transition"] extends infer T
-		? T extends { ease?: infer E }
-			? E
-			: never
-		: never
-}
+  preset?: RevealPreset;
+  distance?: number;
+  scaleFrom?: number;
+  duration?: TimeInput;
+  delay?: number;
+  ease?: HTMLMotionProps<"div">["transition"] extends infer T
+    ? T extends { ease?: infer E }
+      ? E
+      : never
+    : never;
+};
 
 type ViewportProps = {
-	once?: boolean
-	amount?: number
-	margin?: string
-}
+  once?: boolean;
+  amount?: number;
+  margin?: string;
+};
 
 type RevealProps = HTMLMotionProps<"div"> &
-	BaseRevealProps & 
-	ViewportProps & {
-		customVariants?: Variants
-	}
+  BaseRevealProps &
+  ViewportProps & {
+    customVariants?: Variants;
+  };
 
-type RevealGroupProps = HTMLMotionProps<"div"> & 
-	ViewportProps & {
-		staggerChildren?: TimeInput,
-		delayChildren?: TimeInput,
-		customVariants?: Variants
-	}
+type RevealGroupProps = HTMLMotionProps<"div"> &
+  ViewportProps & {
+    staggerChildren?: TimeInput;
+    delayChildren?: TimeInput;
+    customVariants?: Variants;
+  };
 
-type RevealItemProps = HTMLMotionProps<"div"> & 
-	BaseRevealProps & {
-		customVariants?: Variants
-	}
+type RevealItemProps = HTMLMotionProps<"div"> &
+  BaseRevealProps & {
+    customVariants?: Variants;
+  };
 
 const createItemVariants = ({
-	preset = "fadeUp",
-	distance = 60,
-	scaleFrom = 0.9,
-	duration = 0.8,
-	delay = 0,
-	ease = DEFAULT_EASE
+  preset = "fadeUp",
+  distance = 60,
+  scaleFrom = 0.9,
+  duration = 0.8,
+  delay,
+  ease = DEFAULT_EASE,
 }: BaseRevealProps): Variants => {
-	const transition = {
-		duration: toSeconds(duration),
-		delay: toSeconds(delay),
-		ease
-	}
+  const transition = {
+    duration: toSeconds(duration),
+    ease,
+  };
+  if (delay !== undefined) {
+    transition.delay = toSeconds(delay);
+  }
 
-	switch (preset) {
+  switch (preset) {
     case "fadeIn":
       return {
         hidden: { opacity: 0 },
@@ -82,47 +89,47 @@ const createItemVariants = ({
         hidden: { opacity: 0, scale: scaleFrom },
         visible: { opacity: 1, scale: 1, transition },
       };
-    case "fadeUp":
     default:
       return {
         hidden: { opacity: 0, y: distance },
         visible: { opacity: 1, y: 0, transition },
       };
   }
-}
+};
 
 const createGroupVariants = (
-	staggerChildren: TimeInput, 
-	delayChildren: TimeInput
+  staggerChildren: TimeInput,
+  delayChildren: TimeInput,
 ): Variants => ({
-	hidden: {opacity: 0},
-	visible: {
-		opacity: 1,
-		transition: {
-			staggerChildren: toSeconds(staggerChildren),
-			delayChildren: toSeconds(delayChildren)
-		}
-	}
-})
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: toSeconds(staggerChildren),
+      delayChildren: toSeconds(delayChildren),
+    },
+  },
+});
 
 export function Reveal({
-	preset = "fadeUp",
-	distance = 60,
-	scaleFrom = 0.9,
-	duration = 0.8,
-	delay = 0,
-	ease = DEFAULT_EASE,
-	once = true,
-	amount = 0.1,
-	margin = "-100px",
-	customVariants,
-	initial = "hidden",
-	whileInView = "visible",
-	viewport,
-	...props
-}: RevealProps){
-	const variants = customVariants ??
-    	createItemVariants({ preset, distance, scaleFrom, duration, delay, ease });
+  preset = "fadeUp",
+  distance = 60,
+  scaleFrom = 0.9,
+  duration = 0.8,
+  delay,
+  ease = DEFAULT_EASE,
+  once = true,
+  amount = 0.1,
+  margin = "-100px",
+  customVariants,
+  initial = "hidden",
+  whileInView = "visible",
+  viewport,
+  ...props
+}: RevealProps) {
+  const variants =
+    customVariants ??
+    createItemVariants({ preset, distance, scaleFrom, duration, delay, ease });
 
   return (
     <motion.div
@@ -166,7 +173,7 @@ export function RevealItem({
   distance = 60,
   scaleFrom = 0.9,
   duration = 0.8,
-  delay = 0,
+  delay,
   ease = DEFAULT_EASE,
   customVariants,
   ...props

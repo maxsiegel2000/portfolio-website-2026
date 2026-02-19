@@ -1,26 +1,16 @@
 "use client";
 
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
-import { useState, useEffect } from "react";
+import { ArrowRight, Mail, Phone } from "lucide-react";
 
 type ContactInfoProps = {
   email?: string | null;
   phone?: string | null;
-  location?: string | null;
 };
 
 export const ContactInfoCards = ({
   email,
   phone,
-  location,
 }: ContactInfoProps) => {
-  const [, setHoveredIndex] = useState<number | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
-
   const contactItems = [
     {
       name: "Email",
@@ -38,18 +28,6 @@ export const ContactInfoCards = ({
       shadowColor: "rgba(56, 189, 248, 0.5)",
       link: phone ? `tel:${phone}` : undefined,
     },
-    {
-      name: "Location",
-      value: location,
-      icon: <MapPin className="w-7 h-7" />,
-      gradient: "from-violet-600 to-fuchsia-500",
-      shadowColor: "rgba(139, 92, 246, 0.5)",
-      link: location
-        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-            location,
-          )}`
-        : undefined,
-    },
   ].filter((item) => item.value);
 
   if (contactItems.length === 0) {
@@ -58,7 +36,7 @@ export const ContactInfoCards = ({
 
   return (
     <div className="flex flex-col gap-6 mx-auto">
-      {contactItems.map((item, index) => {
+      {contactItems.map((item) => {
         const content = (
           <div className="relative bg-[#1e222b] backdrop-blur-2xl rounded-lg p-4 border overflow-hidden transition-all duration-500 hover:scale-105 w-full">
             {/* Hover Gradient Effect */}
@@ -107,14 +85,7 @@ export const ContactInfoCards = ({
           <a
             key={item.name}
             href={item.link}
-            className={`group relative transition-all duration-700 block w-full ${
-              isLoaded
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-            style={{ transitionDelay: `${index * 100}ms` }}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
+            className="group relative transition-all duration-700 block w-full"
             target={isExternal ? "_blank" : undefined}
             rel={isExternal ? "noreferrer" : undefined}
           >
@@ -123,12 +94,7 @@ export const ContactInfoCards = ({
         ) : (
           <div
             key={item.name}
-            className={`group relative transition-all duration-700 block w-full ${
-              isLoaded
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-            style={{ transitionDelay: `${index * 100}ms` }}
+            className="group relative transition-all duration-700 block w-full"
           >
             {content}
           </div>
@@ -138,20 +104,14 @@ export const ContactInfoCards = ({
   );
 };
 
-export const SocialLinks = () => {
-  const [, setHoveredIndex] = useState<number | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isLoaded, setIsLoaded] = useState(false);
+type SocialLinksProps = {
+  socialLinks?: {
+    github?: string | null
+    linkedin?: string | null
+  } | null
+}
 
-  useEffect(() => {
-    setIsLoaded(true);
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
+export const SocialLinks = ({socialLinks}: SocialLinksProps) => {
   const socialPlatforms = [
     {
       name: "LinkedIn",
@@ -163,7 +123,7 @@ export const SocialLinks = () => {
       ),
       gradient: "from-blue-600 to-blue-400",
       shadowColor: "rgba(59, 130, 246, 0.5)",
-      link: "https://www.linkedin.com/in/max-siegel-97b676304/",
+      link: socialLinks?.linkedin,
       description: "Professional Network",
     },
     {
@@ -176,23 +136,18 @@ export const SocialLinks = () => {
       ),
       gradient: "from-gray-700 to-gray-500",
       shadowColor: "rgba(75, 85, 99, 0.5)",
-      link: "https://github.com/maxsiegel2000",
+      link: socialLinks?.github,
       description: "Code Repository",
     },
-  ];
+  ].filter((platform) => platform.link);
 
   return (
     <div className="flex flex-col gap-6 mx-auto">
-      {socialPlatforms.map((platform, index) => (
+      {socialPlatforms.map((platform) => (
         <a
           key={platform.name}
           href={platform.link}
-          className={`group relative transition-all duration-700 block w-full ${
-            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-          style={{ transitionDelay: `${index * 100}ms` }}
-          onMouseEnter={() => setHoveredIndex(index)}
-          onMouseLeave={() => setHoveredIndex(null)}
+          className="group relative transition-all duration-700 block w-full"
         >
           {/* Card Container */}
           <div className="relative bg-[#1e222b] backdrop-blur-2xl rounded-lg p-4 border overflow-hidden transition-all duration-500 hover:scale-105 w-full">

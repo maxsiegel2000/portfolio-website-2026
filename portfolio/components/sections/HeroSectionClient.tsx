@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { urlFor } from "@/sanity/lib/image";
 import type { Profile } from "@/sanity.types";
+import { RevealGroup, RevealItem } from "../animations/reveal";
 import GradientText from "../GradientText";
+import { ProfileImage } from "../ProfileImage";
 import { BackgroundRippleEffect } from "../ui/background-ripple-effect";
 import { CopyIcon, type CopyIconHandle } from "../ui/copy";
 import { GithubIcon, type GithubIconHandle } from "../ui/github";
@@ -12,9 +15,6 @@ import { LinkedinIcon, type LinkedinIconHandle } from "../ui/linkedin";
 import { MailCheckIcon, type MailCheckIconHandle } from "../ui/mail-check";
 import { MapPinIcon, type MapPinIconHandle } from "../ui/map-pin";
 import { Spotlight } from "../ui/spotlight-new";
-import { ProfileImage } from "../ProfileImage";
-import { urlFor } from "@/sanity/lib/image";
-import FadeIn from "../animations/FadeIn";
 
 type HeroProfile = {
   firstName?: string;
@@ -39,6 +39,7 @@ type HeroSectionClientProps = {
 };
 
 function HeroSectionClient({ profile }: HeroSectionClientProps) {
+  const hasProfileImage = Boolean(profile.profileImage);
   const githubIconRef = useRef<GithubIconHandle>(null);
   const linkedInIconRef = useRef<LinkedinIconHandle>(null);
   const mailCheckIconRef = useRef<MailCheckIconHandle>(null);
@@ -70,10 +71,20 @@ function HeroSectionClient({ profile }: HeroSectionClientProps) {
       {/* Content */}
       <div className="relative z-10 container mx-auto max-w-8xl">
         <div className="@container">
-          <div className="grid grid-cols-1 @3xl:grid-cols-2 gap-8 @lg:gap-12 items-center">
+          <RevealGroup
+            className={`grid grid-cols-1 gap-8 items-center @lg:gap-12 ${
+              hasProfileImage ? "@3xl:grid-cols-2" : ""
+            }`}
+            delayChildren={0.2}
+            staggerChildren={0.5}
+          >
             {/* Text Content */}
-            <div className="@container/hero space-y-4 @md/hero:space-y-6">
-              <FadeIn delay={100}>
+            <RevealGroup
+              className="@container/hero space-y-4 @md/hero:space-y-6"
+              delayChildren={0.25}
+              staggerChildren={0.2}
+            >
+              <RevealItem preset="fadeUp" distance={50} duration={0.5}>
                 <h1 className="text-4xl @md/hero:text-5xl @lg/hero:text-7xl font-bold tracking-tight">
                   <GradientText
                     animationSpeed={3}
@@ -83,9 +94,8 @@ function HeroSectionClient({ profile }: HeroSectionClientProps) {
                   </GradientText>{" "}
                   {profile.headline}
                 </h1>
-              </FadeIn>
-              
-              <FadeIn delay={200}>
+              </RevealItem>
+              <RevealItem preset="fadeUp" distance={45} duration={0.45}>
                 <div className="flex flex-col items-start gap-2 @lg/hero:flex-row @lg/hero:items-center">
                   <p className="text-xl @md/hero:text-2xl @lg/hero:text-3xl text-text-secondary font-medium">
                     {profile.headlineStaticText}
@@ -100,15 +110,14 @@ function HeroSectionClient({ profile }: HeroSectionClientProps) {
                       className="text-xl @md/hero:text-2xl @lg/hero:text-3xl text-primary font-medium"
                     />
                   ) : (
-                    <p className="text-xl @md/hero:text-2xl @l/hero:text-3xl text-muted font-medium">
+                    <p className="text-xl @md/hero:text-2xl @lg/hero:text-3xl text-muted font-medium">
                       {profile.headline}
                     </p>
                   )}
                 </div>
-              </FadeIn>
-              
+              </RevealItem>
               {/* Social Links */}
-              <FadeIn delay={300}>
+              <RevealItem preset="fadeUp" distance={40} duration={0.45}>
                 {profile.socialLinks ? (
                   <div className="flex flex-wrap gap-3 @md/hero:gap-4 pt-4">
                     {profile.socialLinks.github && (
@@ -147,9 +156,8 @@ function HeroSectionClient({ profile }: HeroSectionClientProps) {
                     )}
                   </div>
                 ) : null}
-              </FadeIn>
-              
-              <FadeIn delay={400}>
+              </RevealItem>
+              <RevealItem preset="fadeUp" distance={35} duration={0.45}>
                 <div className="flex flex-wrap gap-4 @md/hero:gap-6 pt-4 text-xs @md/hero:text-sm text-muted-foreground">
                   {profile.email && (
                     <button
@@ -243,19 +251,18 @@ function HeroSectionClient({ profile }: HeroSectionClientProps) {
                     </div>
                   )}
                 </div>
-              </FadeIn>
-            </div>
-            {/* Profile Image */}
-            <FadeIn delay={200}>
-              {profile.profileImage && (
+              </RevealItem>
+            </RevealGroup>
+            {profile.profileImage && (
+              <RevealItem preset="scaleIn" duration={0.6}>
                 <ProfileImage
                   imageUrl={urlFor(profile.profileImage).url()}
                   firstName={profile.firstName || ""}
                   lastName={profile.lastName || ""}
                 />
-              )}
-            </FadeIn>
-          </div>
+              </RevealItem>
+            )}
+          </RevealGroup>
         </div>
       </div>
     </section>

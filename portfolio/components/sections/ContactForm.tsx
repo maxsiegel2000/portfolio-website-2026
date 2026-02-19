@@ -48,7 +48,7 @@ export function ContactForm() {
   };
 
   return (
-    <div className="@container/form bg-[#1e222b] border rounded-lg p-4 @md/form:p-6 h-full z-10">
+    <div className="@container/form bg-[#1e222b] border rounded-lg p-4 @md/form:p-6 h-full">
       <form className="space-y-8 @md/form:space-y-5" onSubmit={handleSubmit}>
         <FieldSet className="gap-4 @md/form:gap-5">
           <FieldLegend className="text-xl @md/form:text-2xl">
