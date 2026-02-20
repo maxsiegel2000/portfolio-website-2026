@@ -5,10 +5,11 @@ import { ConnectIcon} from "../ui/connect";
 import { useRef } from "react";
 import { WrenchIcon } from "../ui/wrench";
 import GradientText from "../GradientText";
-import { BotIcon } from "../ui/bot";
 import { RevealGroup, RevealItem } from "../animations/reveal";
+import { BotMessageSquareIcon } from "../ui/bot-message-square";
+import { FolderCodeIcon } from "../ui/folder-code";
 
-type PillIcon = "connect" | "tool" | "bot"
+type PillIcon = "connect" | "tool" | "bot" | "project"
 
 type AnimatedIconHandle = {
   startAnimation: () => void;
@@ -36,7 +37,8 @@ function SectionHeader({header, animatedHeader, describtion, pillText, pillIcon}
 		};
 
 		switch (pillIcon) {
-			case "bot": return <BotIcon {...common}/>
+			case "project": return <FolderCodeIcon {...common}/>
+			case "bot": return <BotMessageSquareIcon {...common}/>
 			case "tool": return <WrenchIcon {...common}/>
 			default: return <ConnectIcon {...common} />;
 		}
