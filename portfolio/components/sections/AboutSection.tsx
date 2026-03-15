@@ -1,4 +1,7 @@
 "use client";
+
+import { useState } from "react";
+import CodeCompare from "../compare-autoplay";
 import {
   AnimatedCard,
   CardBody,
@@ -11,6 +14,8 @@ import { Visual4 } from "../ui/visual-4";
 import SectionHeader from "./SectionHeader";
 
 const AboutSection = () => {
+  const [isCodeCompareActive, setIsCodeCompareActive] = useState(false);
+
   return (
     <section id="about" className="pt-20 px-6">
       <div className="relative z-20">
@@ -35,6 +40,7 @@ const AboutSection = () => {
           {/* First Flex Row  */}
           <div className="flex flex-col md:flex-row w-full items-center justify-center gap-4">
             {/* Animated Cards */}
+            {/* First Animated Card with Chart */}
             <AnimatedCard>
               <CardVisual>
                 <Visual3 mainColor="#35bae7" secondaryColor="#204fd7" />
@@ -47,6 +53,7 @@ const AboutSection = () => {
                 </CardDescription>
               </CardBody>
             </AnimatedCard>
+            {/* Second Animated Card */}
             <AnimatedCard>
               <CardBody>
                 <CardTitle>Teamplayer</CardTitle>
@@ -55,7 +62,7 @@ const AboutSection = () => {
                 </CardDescription>
               </CardBody>
               <CardVisual>
-                <Visual4 />
+                <Visual4/>
               </CardVisual>
             </AnimatedCard>
             {/* Ghost Cards */}
@@ -67,8 +74,29 @@ const AboutSection = () => {
           {/* Second Flex Row  */}
           <div className="flex flex-col md:flex-row w-full items-center justify-center gap-4">
             {/* Animated Cards */}
-            <AnimatedCard></AnimatedCard>
-            <AnimatedCard></AnimatedCard>
+            <AnimatedCard
+              onMouseEnter={() => setIsCodeCompareActive(true)}
+              onMouseLeave={() => setIsCodeCompareActive(false)}
+            >
+              <CardVisual>
+                {/* Clean Code Illustration */}
+              </CardVisual>
+              <CardBody>
+                <CardTitle> Clean Code </CardTitle>
+                <CardDescription>
+                  I turn ideas into elegant code - clean to read, smooth to run.
+                </CardDescription>
+              </CardBody>
+            </AnimatedCard>
+            <AnimatedCard>
+              <CardBody>
+                <CardTitle> Pixel Perfect </CardTitle>
+                <CardDescription>
+                  Every picel counts - design and function always in perfect
+                  sync.
+                </CardDescription>
+              </CardBody>
+            </AnimatedCard>
             {/* Ghost Cards in Mobile View*/}
             <AnimatedCard className="absolute translate-x-104 translate-y-33 md:hidden opacity-65 mask-left-fade" />
             <AnimatedCard className="absolute translate-x-104 -translate-y-33 md:hidden opacity-65 mask-left-fade" />

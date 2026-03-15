@@ -26,7 +26,6 @@ export function ContactForm() {
 
     startTransition(async () => {
       const result = await submitContactForm(formData);
-
       if (result.success) {
         setStatus({
           type: "success",

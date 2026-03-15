@@ -40,12 +40,10 @@ export const useScrollSpy = (sectionIds: string[], offset = 100) => {
 //Smooth scroll to a section
 export const scrollToSection = (sectionId: string, offset = 80) => {
   const section = document.getElementById(sectionId);
+  if (!section) return;
 
-  if (section) {
-    const top = section.offsetTop - offset;
-    window.scrollTo({
-      top,
-      behavior: "smooth",
-    });
-  }
+  window.scrollTo({
+    top: section.offsetTop - offset,
+    behavior: "smooth"
+  });
 };

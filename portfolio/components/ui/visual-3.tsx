@@ -324,9 +324,9 @@ const Layer4: React.FC<LayerProps> = ({ color, secondaryColor, hovered }) => {
         className="h-full w-full"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {rectsData.map((rect, index) => (
+        {rectsData.map((rect) => (
           <rect
-            key={index}
+            key={`${rect.x}-${rect.y}-${rect.width}`}
             width={rect.width}
             height={hovered ? rect.hoverHeight : rect.height}
             x={rect.x}

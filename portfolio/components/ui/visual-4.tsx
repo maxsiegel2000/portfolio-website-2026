@@ -1,207 +1,335 @@
 "use client";
 
-import { Lightbulb } from "lucide-react";
-import { animate, motion, useMotionValue, useTransform } from "motion/react";
-import type React from "react";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { type CSSProperties, useState } from "react";
 
-interface Visual3Props {
+interface Visual4Props {
   mainColor?: string;
   secondaryColor?: string;
   gridColor?: string;
   showLayer1?: boolean;
 }
 
-export function Visual4({
-  mainColor = "var(--accent-cyan)",
-  secondaryColor = "#fbbf24",
-  gridColor = "#80808015",
-  showLayer1 = false,
-}: Visual3Props) {
+const connectionPaths = [
+  {
+    id: "beam-top-left",
+    d: "M 66 40 C 118 40, 146 46, 182 68",
+    duration: 2,
+  },
+  {
+    id: "beam-bottom-left",
+    d: "M 66 140 C 118 140, 146 134, 182 112",
+    duration: 2.1,
+  },
+  {
+    id: "beam-top-right",
+    d: "M 354 40 C 302 40, 274 46, 238 68",
+    duration: 1.9,
+  },
+  {
+    id: "beam-bottom-right",
+    d: "M 354 140 C 302 140, 274 134, 238 112",
+    duration: 2.2,
+  },
+] as const;
+
+const beamRepeatDelay = 0.85;
+
+const avatars = [
+  {
+    id: "avatar-top-left",
+    cx: 80,
+    cy: 40,
+    fill: "#5B6472",
+    hoverFill: "#7aecf5",
+  },
+  {
+    id: "avatar-bottom-left",
+    cx: 80,
+    cy: 140,
+    fill: "#5B6472",
+    hoverFill: "#204fd7",
+  },
+  {
+    id: "avatar-top-right",
+    cx: 340,
+    cy: 40,
+    fill: "#5B6472",
+    hoverFill: "#35bae7",
+  },
+  {
+    id: "avatar-bottom-right",
+    cx: 340,
+    cy: 140,
+    fill: "#5B6472",
+    hoverFill: "#3aa8f5",
+  },
+] as const;
+
+const rectsData = [
+  {
+    id: "doc-line-1",
+    x: 174.5,
+    y: 60,
+    width: 44,
+    hoverWidth: 25,
+    height: 6.5,
+    fill: "#5B6472",
+    hoverFill: "#204fd7",
+  },
+  {
+    id: "doc-line-2",
+    x: 182,
+    y: 70,
+    width: 50,
+    hoverWidth: 50,
+    height: 6.5,
+    fill: "#35BAE7",
+    hoverFill: "#35BAE7",
+  },
+  {
+    id: "doc-line-3",
+    x: 182,
+    y: 80,
+    width: 28,
+    hoverWidth: 40,
+    height: 6.5,
+    fill: "#5B6472",
+    hoverFill: "#7aecf5",
+  },
+  {
+    id: "doc-line-4",
+    x: 192,
+    y: 90,
+    width: 45,
+    hoverWidth: 32,
+    height: 6.5,
+    fill: "#5B6472",
+    hoverFill: "#204fd7",
+  },
+  {
+    id: "doc-line-5",
+    x: 187,
+    y: 100,
+    width: 22,
+    hoverWidth: 22,
+    height: 6.5,
+    fill: "#35BAE7",
+    hoverFill: "#35BAE7",
+  },
+  {
+    id: "doc-line-6",
+    x: 177,
+    y: 110,
+    width: 20,
+    hoverWidth: 35,
+    height: 6.5,
+    fill: "#5B6472",
+    hoverFill: "#7aecf5",
+  },
+  {
+    id: "doc-line-7",
+    x: 174.5,
+    y: 120,
+    width: 15,
+    hoverWidth: 22,
+    height: 6.5,
+    fill: "#5B6472",
+    hoverFill: "#204fd7",
+  },
+];
+
+export function Visual4({ gridColor = "#80808015" }: Visual4Props) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <>
-      <div
-        className="absolute inset-0 z-20"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        style={
-          {
-            "--color": mainColor,
-            "--secondary-color": secondaryColor,
-          } as React.CSSProperties
-        }
-      />
+    <motion.div
+      className="relative overflow-hidden"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <GridLayer color={gridColor} />
 
-      <div className="flex items-center justify-center h-full w-full overflow-hidden">
-        <LightBulbLayer color={gridColor} hovered={hovered} />
-        <GridLayer color={gridColor} />
-      </div>
-    </>
+      <motion.svg
+        viewBox="0 0 420 180"
+        className="relative z-20"
+        role="img"
+        aria-labelledby="visual-4-title"
+      >
+        <defs>
+          <linearGradient
+            id="visual-4-beam-gradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
+            <stop offset="0%" stopColor="#7AECF5" stopOpacity="0" />
+            <stop offset="25%" stopColor="#7AECF5" stopOpacity="0.95" />
+            <stop offset="100%" stopColor="#35BAE7" stopOpacity="0.35" />
+          </linearGradient>
+          <filter
+            id="visual-4-beam-blur"
+            x="-100%"
+            y="-100%"
+            width="300%"
+            height="300%"
+          >
+            <feGaussianBlur stdDeviation="2.5" />
+          </filter>
+        </defs>
+
+        <g>
+          {connectionPaths.map((path) => (
+            <path
+              key={path.id}
+              d={path.d}
+              fill="none"
+              stroke="#2a2d36"
+              strokeWidth="1"
+              strokeLinecap="round"
+            />
+          ))}
+        </g>
+
+        <g>
+          {connectionPaths.map((path) => (
+            <g key={`${path.id}-pulse`}>
+              <motion.path
+                d={path.d}
+                fill="none"
+                stroke="#7AECF5"
+                strokeOpacity="0.35"
+                strokeWidth="3"
+                strokeLinecap="round"
+                pathLength={100}
+                strokeDasharray="18 82"
+                filter="url(#visual-4-beam-blur)"
+                initial={false}
+                animate={
+                  hovered
+                    ? { strokeDashoffset: [100, 0], opacity: 1 }
+                    : { strokeDashoffset: 100, opacity: 0 }
+                }
+                transition={
+                  hovered
+                    ? {
+                        strokeDashoffset: {
+                          duration: path.duration * 0.55,
+                          ease: "linear",
+                          repeat: Number.POSITIVE_INFINITY,
+                          repeatDelay: beamRepeatDelay,
+                        },
+                        opacity: { duration: 0.2, ease: "easeOut" },
+                      }
+                    : {
+                        strokeDashoffset: { duration: 0 },
+                        opacity: { duration: 0.2, ease: "easeOut" },
+                      }
+                }
+              />
+              <motion.path
+                d={path.d}
+                fill="none"
+                stroke="url(#visual-4-beam-gradient)"
+                strokeWidth="1"
+                strokeLinecap="round"
+                pathLength={100}
+                strokeDasharray="18 82"
+                initial={false}
+                animate={
+                  hovered
+                    ? { strokeDashoffset: [100, 0], opacity: 1 }
+                    : { strokeDashoffset: 100, opacity: 0 }
+                }
+                transition={
+                  hovered
+                    ? {
+                        strokeDashoffset: {
+                          duration: path.duration * 0.55,
+                          ease: "linear",
+                          repeat: Number.POSITIVE_INFINITY,
+                          repeatDelay: beamRepeatDelay,
+                        },
+                        opacity: { duration: 0.2, ease: "easeOut" },
+                      }
+                    : {
+                        strokeDashoffset: { duration: 0 },
+                        opacity: { duration: 0.2, ease: "easeOut" },
+                      }
+                }
+              />
+            </g>
+          ))}
+        </g>
+
+        <motion.g>
+          <rect
+            x="166"
+            y="40"
+            width="88"
+            height="96"
+            rx="14"
+            fill="#13161D"
+            stroke="#3A4454"
+          />
+
+          <circle cx="178" cy="50" r="3.2" fill="#FF6B6B" />
+          <circle cx="190" cy="50" r="3.2" fill="#FACC15" />
+          <circle cx="202" cy="50" r="3.2" fill="#22C55E" />
+
+          {rectsData.map((rect) => (
+            <rect
+              key={rect.id}
+              width={hovered ? rect.hoverWidth : rect.width}
+              height={rect.height}
+              x={rect.x}
+              y={rect.y}
+              fill={hovered ? rect.hoverFill : rect.fill}
+              rx="3.25"
+              className="ease-[cubic-bezier(0.6, 0.6, 0, 1)] transition-all duration-500"
+            />
+          ))}
+        </motion.g>
+
+        {avatars.map((avatar) => (
+          <motion.g key={avatar.id}>
+            <circle
+              cx={avatar.cx}
+              cy={avatar.cy}
+              r="16"
+              className="ease-[cubic-bezier(0.6, 0.6, 0, 1)] transition-all duration-500"
+              fill="#13161D"
+              stroke="#2A2D36"
+            />
+            <circle
+              cx={avatar.cx}
+              cy={avatar.cy - 6}
+              r="5"
+              fill={hovered ? avatar.hoverFill : avatar.fill}
+              className="ease-[cubic-bezier(0.6, 0.6, 0, 1)] transition-all duration-500"
+            />
+            <rect
+              x={avatar.cx - 7}
+              y={avatar.cy + 2}
+              width="14"
+              height="8"
+              rx="4"
+              fill={hovered ? avatar.hoverFill : avatar.fill}
+              className="ease-[cubic-bezier(0.6, 0.6, 0, 1)] transition-all duration-500"
+            />
+          </motion.g>
+        ))}
+      </motion.svg>
+    </motion.div>
   );
 }
 
-interface LayerProps {
-  color: string;
-  secondaryColor?: string;
-  hovered?: boolean;
-}
-
-const GridLayer: React.FC<{ color: string }> = ({ color }) => {
+function GridLayer({ color }: { color: string }) {
   return (
     <div
-      style={{ "--grid-color": color } as React.CSSProperties}
-      className="pointer-events-none absolute inset-0 z-4 h-full w-full bg-transparent bg-[linear-gradient(to_right,var(--grid-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-color)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)] bg-[size:20px_20px] bg-center opacity-70"
+      style={{ "--grid-color": color } as CSSProperties}
+      className="pointer-events-none absolute inset-0 z-0 h-full w-full bg-transparent bg-[linear-gradient(to_right,var(--grid-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-color)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)] bg-[size:20px_20px] bg-center opacity-70"
     />
   );
-};
-
-const LightBulbLayer: React.FC<LayerProps> = ({ color, hovered }) => {
-  const hoverAnimationDuration = 2;
-  const beamTravel = -32;
-  const progress = useMotionValue(0);
-  const beamY = useTransform(progress, [0, 1], ["0%", `${beamTravel}%`]);
-  const beamOpacity = useTransform(progress, [0, 0.08, 1], [0, 1, 1]);
-  const bulbClip = useTransform(
-    progress,
-    (value) => `inset(${(1 - value) * 100}% 0% 0% 0%)`,
-  );
-  const isHovered = Boolean(hovered);
-
-  useEffect(() => {
-    const controls = animate(progress, isHovered ? 1 : 0, {
-      duration: hoverAnimationDuration,
-      ease: "easeInOut",
-    });
-
-    return () => controls.stop();
-  }, [isHovered, progress]);
-
-  return (
-    <div
-      className="flex items-center justify-center inset-0 z-5 h-27.5 w-27.5 bg-bg-gradient-primary border rounded-4xl"
-      style={{ background: "var(--bg-gradient-primary)" }}
-    >
-      <div className="relative">
-        <Lightbulb size={80} className="text-text-muted" />
-        <motion.div
-          className="absolute inset-0"
-          style={{ color: "var(--accent-cyan)", clipPath: bulbClip }}
-        >
-          <Lightbulb size={80} />
-        </motion.div>
-      </div>
-      <motion.div
-        className="pointer-events-none absolute inset-0 z-40"
-        style={{ opacity: beamOpacity, y: beamY }}
-      >
-        <div className="h-40 w-0.5 absolute top-42 left-1/2 -translate-x-1/2 -rotate-90 m-auto bg-linear-to-b from-transparent via-(--accent-cyan) to-transparent">
-          <div className="w-10 h-32 top-1/2 -translate-y-1/2 absolute -left-10">
-            <Sparkles />
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-};
-
-const Sparkles = () => {
-  const [sparkles, setSparkles] = useState<
-    Array<{
-      id: string;
-      top: number;
-      left: number;
-      moveX: number;
-      moveY: number;
-      opacity: number;
-      duration: number;
-      delay: number;
-    }>
-  >([]);
-
-  useEffect(() => {
-    const randomMove = () => Math.random() * 2 - 1;
-    const randomOpacity = () => Math.random();
-    const random = () => Math.random();
-
-    setSparkles(
-      Array.from({ length: 12 }, (_, i) => ({
-        id: `star-${i}`,
-        top: random() * 100,
-        left: random() * 100,
-        moveX: randomMove(),
-        moveY: randomMove(),
-        opacity: randomOpacity(),
-        duration: random() * 2 + 4,
-        delay: random(),
-      })),
-    );
-  }, []);
-
-  if (sparkles.length === 0) {
-    return null;
-  }
-
-  return (
-    <div className="absolute inset-0">
-      {sparkles.map((sparkle) => (
-        <motion.span
-          key={sparkle.id}
-          animate={{
-            top: `calc(${sparkle.top}% + ${sparkle.moveY}px)`,
-            left: `calc(${sparkle.left}% + ${sparkle.moveX}px)`,
-            opacity: sparkle.opacity,
-            scale: [1, 1.2, 0],
-          }}
-          transition={{
-            duration: sparkle.duration,
-            repeat: Infinity,
-            ease: "linear",
-            delay: sparkle.delay,
-          }}
-          style={{
-            position: "absolute",
-            top: `${sparkle.top}%`,
-            left: `${sparkle.left}%`,
-            width: "2px",
-            height: "2px",
-            borderRadius: "50%",
-            zIndex: 1,
-          }}
-          className="inline-block bg-primary"
-        />
-      ))}
-    </div>
-  );
-};
-
-const _EllipseGradient: React.FC<{ color: string }> = ({ color }) => {
-  return (
-    <div className="absolute inset-0 z-[5] h-full w-full">
-      <svg
-        viewBox="0 0 356 180"
-        preserveAspectRatio="none"
-        className="h-full w-full"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect width="356" height="180" fill="url(#paint0_radial_12_207)" />
-        <defs>
-          <radialGradient
-            id="paint0_radial_12_207"
-            cx="0"
-            cy="0"
-            r="1"
-            gradientUnits="userSpaceOnUse"
-            gradientTransform="translate(178 98) rotate(90) scale(98 178)"
-          >
-            <stop stopColor={color} stopOpacity="0.25" />
-            <stop offset="0.34" stopColor={color} stopOpacity="0.15" />
-            <stop offset="1" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-      </svg>
-    </div>
-  );
-};
+}

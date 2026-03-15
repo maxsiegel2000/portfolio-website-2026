@@ -53,30 +53,20 @@ const labelVariants = {
 
 const transition = { type: "spring", bounce: 0, duration: 0.45 };
 
+const SECTION_BY_KEY: Record<string, SectionName> = {
+  home: "Home",
+  about: "About",
+  skills: "Skills",
+  projects: "Projects",
+  contact: "Contact",
+};
+
 const normalizeToSectionName = (value?: string | null): SectionName | null => {
   if (!value) return null;
-
-  const normalized = value
-    .trim()
-    .toLowerCase()
-    .replace(/^#/, "")
-    .replace(/^\/+/, "");
-
-  switch (normalized) {
-    case "home":
-      return "Home";
-    case "about":
-      return "About";
-    case "skills":
-      return "Skills";
-    case "projects":
-      return "Projects";
-    case "contact":
-      return "Contact";
-    default:
-      return null;
-  }
+  const key = value.trim().toLowerCase().replace(/^#/, "").replace(/^\/+/, "");
+  return SECTION_BY_KEY[key] ?? null;
 };
+
 
 export function DockClient({
   navItems,
@@ -285,7 +275,7 @@ export function DockClient({
                     animate="animate"
                     exit="exit"
                     transition={transition}
-                    className="overflow-hidden whitespace-nowrap"
+                    className="overflow-hidden whitespace-nowrap capitalize"
                   >
                     {item.title}
                   </motion.span>
