@@ -156,6 +156,7 @@ export function Visual4({ gridColor = "#80808015" }: Visual4Props) {
         role="img"
         aria-labelledby="visual-4-title"
       >
+        <title id="visual-4-title">Team collaboration visualization</title>
         <defs>
           <linearGradient
             id="visual-4-beam-gradient"
@@ -176,6 +177,21 @@ export function Visual4({ gridColor = "#80808015" }: Visual4Props) {
             height="300%"
           >
             <feGaussianBlur stdDeviation="2.5" />
+          </filter>
+          <radialGradient id="visual-4-doc-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#7AECF5" stopOpacity="1" />
+            <stop offset="45%" stopColor="#35BAE7" stopOpacity="0.85" />
+            <stop offset="75%" stopColor="#204FD7" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#204FD7" stopOpacity="0" />
+          </radialGradient>
+          <filter
+            id="visual-4-doc-glow-blur"
+            x="-120%"
+            y="-120%"
+            width="340%"
+            height="340%"
+          >
+            <feGaussianBlur stdDeviation="22" />
           </filter>
         </defs>
 
@@ -264,6 +280,18 @@ export function Visual4({ gridColor = "#80808015" }: Visual4Props) {
         </g>
 
         <motion.g>
+          <motion.rect
+            x="166"
+            y="40"
+            width="88"
+            height="96"
+            rx="14"
+            fill="url(#visual-4-doc-glow)"
+            filter="url(#visual-4-doc-glow-blur)"
+            initial={false}
+            animate={{ opacity: hovered ? 1 : 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          />
           <rect
             x="166"
             y="40"
