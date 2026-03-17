@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import CodeCompare from "../compare-autoplay";
 import {
   AnimatedCard,
   CardBody,
@@ -79,12 +78,12 @@ const AboutSection = () => {
               onMouseLeave={() => setIsCodeCompareActive(false)}
             >
               <CardVisual>
-                {/* Clean Code Illustration */}
+                {/* Clean Structure Illustration */}
               </CardVisual>
               <CardBody>
-                <CardTitle> Clean Code </CardTitle>
+                <CardTitle> Clean Structure </CardTitle>
                 <CardDescription>
-                  I turn ideas into elegant code - clean to read, smooth to run.
+                  I turn complexity into clear, scalable structure.
                 </CardDescription>
               </CardBody>
             </AnimatedCard>
@@ -92,7 +91,7 @@ const AboutSection = () => {
               <CardBody>
                 <CardTitle> Pixel Perfect </CardTitle>
                 <CardDescription>
-                  Every picel counts - design and function always in perfect
+                  Every pixel counts - design and function always in perfect
                   sync.
                 </CardDescription>
               </CardBody>

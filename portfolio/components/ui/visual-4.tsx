@@ -15,21 +15,25 @@ const connectionPaths = [
     id: "beam-top-left",
     d: "M 66 40 C 118 40, 146 46, 182 68",
     duration: 2,
+    color: "#7aecf5",
   },
   {
     id: "beam-bottom-left",
     d: "M 66 140 C 118 140, 146 134, 182 112",
     duration: 2.1,
+    color: "#204fd7",
   },
   {
     id: "beam-top-right",
     d: "M 354 40 C 302 40, 274 46, 238 68",
     duration: 1.9,
+    color: "#35bae7",
   },
   {
     id: "beam-bottom-right",
     d: "M 354 140 C 302 140, 274 134, 238 112",
     duration: 2.2,
+    color: "#8B5CF6",
   },
 ] as const;
 
@@ -62,7 +66,7 @@ const avatars = [
     cx: 340,
     cy: 140,
     fill: "#5B6472",
-    hoverFill: "#3aa8f5",
+    hoverFill: "#8B5CF6",
   },
 ] as const;
 
@@ -95,7 +99,7 @@ const rectsData = [
     hoverWidth: 40,
     height: 6.5,
     fill: "#5B6472",
-    hoverFill: "#7aecf5",
+    hoverFill: "#8B5CF6",
   },
   {
     id: "doc-line-4",
@@ -156,19 +160,21 @@ export function Visual4({ gridColor = "#80808015" }: Visual4Props) {
         role="img"
         aria-labelledby="visual-4-title"
       >
-        <title id="visual-4-title">Team collaboration visualization</title>
         <defs>
-          <linearGradient
-            id="visual-4-beam-gradient"
-            x1="0%"
-            y1="0%"
-            x2="100%"
-            y2="0%"
-          >
-            <stop offset="0%" stopColor="#7AECF5" stopOpacity="0" />
-            <stop offset="25%" stopColor="#7AECF5" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#35BAE7" stopOpacity="0.35" />
-          </linearGradient>
+          {connectionPaths.map((path) => (
+            <linearGradient
+              key={`${path.id}-gradient`}
+              id={`${path.id}-gradient`}
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+            >
+              <stop offset="0%" stopColor={path.color} stopOpacity="0" />
+              <stop offset="25%" stopColor={path.color} stopOpacity="0.95" />
+              <stop offset="100%" stopColor={path.color} stopOpacity="0.35" />
+            </linearGradient>
+          ))}
           <filter
             id="visual-4-beam-blur"
             x="-100%"
@@ -214,8 +220,8 @@ export function Visual4({ gridColor = "#80808015" }: Visual4Props) {
               <motion.path
                 d={path.d}
                 fill="none"
-                stroke="#7AECF5"
-                strokeOpacity="0.35"
+                stroke={path.color}
+                strokeOpacity="0.45"
                 strokeWidth="3"
                 strokeLinecap="round"
                 pathLength={100}
@@ -247,7 +253,7 @@ export function Visual4({ gridColor = "#80808015" }: Visual4Props) {
               <motion.path
                 d={path.d}
                 fill="none"
-                stroke="url(#visual-4-beam-gradient)"
+                stroke={`url(#${path.id}-gradient)`}
                 strokeWidth="1"
                 strokeLinecap="round"
                 pathLength={100}
