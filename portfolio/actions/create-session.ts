@@ -2,12 +2,24 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { WORKFLOW_ID } from "@/lib/config";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function createSession() {
   const { userId } = await auth();
 
   if (!userId) {
     throw new Error("Unauthorized - Please sign in");
+  }
+
+  const rateLimit = checkRateLimit(
+    `chat-session:${userId}`,
+    10,
+    10 * 60 * 1000,
+  );
+  if (!rateLimit.allowed) {
+    throw new Error(
+      `Too many chat sessions. Please try again in ${rateLimit.retryAfterSeconds} seconds.`,
+    );
   }
 
   const apiKey = process.env.OPENAI_API_KEY;

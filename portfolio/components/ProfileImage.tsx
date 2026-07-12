@@ -1,9 +1,9 @@
 "use client";
 
 import { useClerk, useUser } from "@clerk/nextjs";
+import { MessageCircle, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import { MessageCircle, X } from "lucide-react";
 import { useSidebar } from "./ui/sidebar";
 
 interface ProfileImageProps {

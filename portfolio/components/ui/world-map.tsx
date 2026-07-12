@@ -1,10 +1,9 @@
 "use client";
 
-import { useRef } from "react";
-import { motion } from "motion/react";
 import DottedMap from "dotted-map";
-
+import { motion } from "motion/react";
 import { useTheme } from "next-themes";
+import { useRef } from "react";
 
 interface MapProps {
   dots?: Array<{
@@ -47,6 +46,7 @@ export default function WorldMap({
 
   return (
     <div className="w-full aspect-[2/1] dark:bg-black bg-white rounded-lg  relative font-sans">
+      {/* biome-ignore lint/performance/noImgElement: The map is an in-memory SVG data URL, not a remote image asset. */}
       <img
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
         className="h-full w-full [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)] pointer-events-none select-none"

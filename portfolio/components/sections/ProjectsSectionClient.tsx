@@ -23,7 +23,6 @@ export type ProjectCard = {
   technologies: Array<{
     name: string;
     category: string;
-    color: string;
     icon: string;
   }>;
 };
@@ -93,7 +92,7 @@ function ProjectsSectionClient({ projects }: ProjectsSectionClientProps) {
                   staggerChildren={0.12}
                   once={true}
                   amount={0.2}
-                  margin="-80px"
+                  margin="-60px 0px"
                 >
                   <RevealItem preset="fadeIn" duration={0.45}>
                     <div className="flex items-center justify-between">

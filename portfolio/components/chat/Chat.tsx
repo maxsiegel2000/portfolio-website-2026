@@ -1,11 +1,26 @@
 "use client";
 
-import { createSession } from "@/actions/create-session";
-import { CHAT_PROFILE_QUERY_RESULT } from "@/sanity.types";
+import { useUser } from "@clerk/nextjs";
 import { ChatKit, useChatKit } from "@openai/chatkit-react";
+import { createSession } from "@/actions/create-session";
+import type { CHAT_PROFILE_QUERY_RESULT } from "@/sanity.types";
 import { useSidebar } from "../ui/sidebar";
 
 function Chat({ profile }: { profile: CHAT_PROFILE_QUERY_RESULT | null }) {
+  const { isLoaded, isSignedIn } = useUser();
+
+  if (!isLoaded || !isSignedIn) {
+    return null;
+  }
+
+  return <AuthenticatedChat profile={profile} />;
+}
+
+function AuthenticatedChat({
+  profile,
+}: {
+  profile: CHAT_PROFILE_QUERY_RESULT | null;
+}) {
   const { toggleSidebar } = useSidebar();
   // Generate greeting based on available profile data
   const getGreeting = () => {

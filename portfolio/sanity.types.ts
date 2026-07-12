@@ -125,21 +125,6 @@ export type SanityImageHotspot = {
   width?: number;
 };
 
-export type Contact = {
-  _id: string;
-  _type: "contact";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  email?: string;
-  subject?: string;
-  message?: string;
-  submittedAt?: string;
-  status?: "new" | "archived";
-  notes?: string;
-};
-
 export type Education = {
   _id: string;
   _type: "education";
@@ -233,19 +218,6 @@ export type Experience = {
   order?: number;
 };
 
-export type Skill = {
-  _id: string;
-  _type: "skill";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  category?: "frontend" | "backend" | string | "ai-ml";
-  proficiency?: "beginner" | "intermediate" | "advanced" | "expert";
-  percentage?: number;
-  yearsOfExperience?: number;
-};
-
 export type Project = {
   _id: string;
   _type: "project";
@@ -297,6 +269,35 @@ export type Slug = {
   _type: "slug";
   current?: string;
   source?: string;
+};
+
+export type Skill = {
+  _id: string;
+  _type: "skill";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  category?: "Frontend" | "Backend" | "Tools" | "Product Development";
+  proficiency?: "Beginner" | "Intermediate" | "Advanced" | "Expert";
+  percentage?: number;
+  yearsOfExperience?: number;
+  icon?: string;
+};
+
+export type Contact = {
+  _id: string;
+  _type: "contact";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+  submittedAt?: string;
+  status?: "new" | "archived";
+  notes?: string;
 };
 
 export type Profile = {
@@ -462,12 +463,12 @@ export type AllSanitySchemaTypes =
   | SiteSettings
   | SanityImageCrop
   | SanityImageHotspot
-  | Contact
   | Education
   | Experience
-  | Skill
   | Project
   | Slug
+  | Skill
+  | Contact
   | Profile
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -479,12 +480,6 @@ export type AllSanitySchemaTypes =
   | Geopoint;
 
 export declare const internalGroqTypeReferenceTo: unique symbol;
-
-type ArrayOf<T> = Array<
-  T & {
-    _key: string;
-  }
->;
 
 // Source: components/chat/ChatWrapper.tsx
 // Variable: CHAT_PROFILE_QUERY
@@ -839,6 +834,62 @@ export type HERO_QUERY_RESULT =
     }
   | null;
 
+// Source: components/sections/ProjectsSection.tsx
+// Variable: PROJECTS_QUERY
+// Query: *[_type == "project" && featured == true] | order(order asc)[0...6]{  title,  slug,  tagline,  category,  liveUrl,  githubUrl,  coverImage,  "coverImageWidth": coverImage.asset->metadata.dimensions.width,  "coverImageHeight": coverImage.asset->metadata.dimensions.height,  technologies[]->{name, category, icon}}
+export type PROJECTS_QUERY_RESULT = Array<{
+  title: string | null;
+  slug: Slug | null;
+  tagline: string | null;
+  category:
+    | "ai-ml"
+    | "api-backend"
+    | "browser-extension"
+    | "cli-tool"
+    | "desktop-app"
+    | "devops"
+    | "game"
+    | "mobile-app"
+    | "open-source"
+    | "other"
+    | "web-app"
+    | null;
+  liveUrl: string | null;
+  githubUrl: string | null;
+  coverImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  coverImageWidth: number | null;
+  coverImageHeight: number | null;
+  technologies: Array<{
+    name: string | null;
+    category: "Backend" | "Frontend" | "Product Development" | "Tools" | null;
+    icon: string | null;
+  }> | null;
+}>;
+
+// Source: components/sections/SkillsSection.tsx
+// Variable: SKILLS_QUERY
+// Query: *[_type == "skill"] | order(category asc, order asc){  name,  category,  proficiency,  percentage,  yearsOfExperience,  icon}
+export type SKILLS_QUERY_RESULT = Array<{
+  name: string | null;
+  category: "Backend" | "Frontend" | "Product Development" | "Tools" | null;
+  proficiency: "Advanced" | "Beginner" | "Expert" | "Intermediate" | null;
+  percentage: number | null;
+  yearsOfExperience: number | null;
+  icon: string | null;
+}>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -847,5 +898,7 @@ declare module "@sanity/client" {
     '*[_type == "navigation"] | order(order asc){\n  title,\n  href,\n  icon,\n  isExternal\n}': NAVIGATION_QUERY_RESULT;
     '*[_id == "singleton-profile"][0]{\n  email,\n  phone,\n  location,\n  socialLinks\n}': PROFILE_QUERY_RESULT;
     '*[_id == "singleton-profile"][0]{\n\t\tfirstName,\n\t\tlastName,\n\t\theadline,\n\t\tcolorHeadline,\n\t\theadlineStaticText,\n\t\theadlineAnimatedWords,\n\t\theadlineAnimationDuration,\n\t\tshortBio,\n\t\temail,\n\t\tphone,\n\t\tlocation,\n\t\tavailability,\n\t\tsocialLinks,\n\t\tyearsOfExperience,\n\t\tprofileImage\n\t}': HERO_QUERY_RESULT;
+    '*[_type == "project" && featured == true] | order(order asc)[0...6]{\n  title,\n  slug,\n  tagline,\n  category,\n  liveUrl,\n  githubUrl,\n  coverImage,\n  "coverImageWidth": coverImage.asset->metadata.dimensions.width,\n  "coverImageHeight": coverImage.asset->metadata.dimensions.height,\n  technologies[]->{name, category, icon}\n}': PROJECTS_QUERY_RESULT;
+    '*[_type == "skill"] | order(category asc, order asc){\n  name,\n  category,\n  proficiency,\n  percentage,\n  yearsOfExperience,\n  icon\n}': SKILLS_QUERY_RESULT;
   }
 }

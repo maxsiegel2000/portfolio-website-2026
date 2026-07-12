@@ -1,23 +1,23 @@
 "use client";
 
 import { RevealGroup, RevealItem } from "../animations/reveal";
-import SectionHeader from "./SectionHeader";
-import { ContactForm } from "./ContactForm";
 import { ContactInfoCards, SocialLinks } from "../ui/get-in-touch";
+import { ContactForm } from "./ContactForm";
+import SectionHeader from "./SectionHeader";
 
 type ContacProfile = {
-  email?: string | null
-  phone?: string | null
-  location?: string | null
+  email?: string | null;
+  phone?: string | null;
+  location?: string | null;
   socialLinks?: {
-    github?: string
-    linkedin?: string
-  } | null
-}
+    github?: string;
+    linkedin?: string;
+  } | null;
+};
 
 type ContactSectionClientProps = {
-  profile: ContacProfile
-}
+  profile: ContacProfile;
+};
 
 export function ContactSectionClient({ profile }: ContactSectionClientProps) {
   return (
@@ -26,7 +26,8 @@ export function ContactSectionClient({ profile }: ContactSectionClientProps) {
       <div
         className="pointer-events-none absolute inset-0 z-0 mask-top-fade"
         style={{
-          background: "radial-gradient(125% 125% at 50% 10%, #0a0d12 40%, #0d1a36 100%)",
+          background:
+            "radial-gradient(125% 125% at 50% 10%, #0a0d12 40%, #0d1a36 100%)",
         }}
       />
 
@@ -49,10 +50,7 @@ export function ContactSectionClient({ profile }: ContactSectionClientProps) {
                 </h3>
               </RevealItem>
               <RevealItem preset="slideLeft" distance={100}>
-                <ContactInfoCards
-                  email={profile.email}
-                  phone={profile.phone}
-                />
+                <ContactInfoCards email={profile.email} phone={profile.phone} />
               </RevealItem>
             </RevealGroup>
             <RevealGroup>
@@ -66,7 +64,11 @@ export function ContactSectionClient({ profile }: ContactSectionClientProps) {
               </RevealItem>
             </RevealGroup>
           </RevealGroup>
-          <RevealItem preset="slideRight" distance={100} className="@3xl:h-full">
+          <RevealItem
+            preset="slideRight"
+            distance={100}
+            className="@3xl:h-full"
+          >
             {/* Contact Form */}
             <ContactForm />
           </RevealItem>

@@ -50,7 +50,7 @@ const FolderCodeIcon = forwardRef<FolderCodeIconHandle, FolderCodeIconProps>(
           controls.start("animate");
         }
       },
-      [controls, onMouseEnter]
+      [controls, onMouseEnter],
     );
 
     const handleMouseLeave = useCallback(
@@ -61,7 +61,7 @@ const FolderCodeIcon = forwardRef<FolderCodeIconHandle, FolderCodeIconProps>(
           controls.start("normal");
         }
       },
-      [controls, onMouseLeave]
+      [controls, onMouseLeave],
     );
 
     return (
@@ -100,7 +100,7 @@ const FolderCodeIcon = forwardRef<FolderCodeIconHandle, FolderCodeIconProps>(
         </svg>
       </div>
     );
-  }
+  },
 );
 
 FolderCodeIcon.displayName = "FolderCodeIcon";

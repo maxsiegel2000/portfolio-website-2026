@@ -19,8 +19,11 @@ export default defineType({
         list: [
           { title: "Frontend", value: "Frontend" },
           { title: "Backend", value: "Backend" },
-          { title: "Tools & Others", value: "Tools" },
-          { title: "AI/ML", value: "Ai-Ml" },
+          { title: "Tools", value: "Tools" },
+          {
+            title: "Product Development",
+            value: "Product Development",
+          },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -53,18 +56,10 @@ export default defineType({
       validation: (Rule) => Rule.min(0),
     }),
     defineField({
-      name: "color",
-      title: "Color",
-      type: "string",
-      description:
-        "Hex color from light to dark (Beginner to Expert)",
-    }),
-    defineField({
       name: "icon",
       title: "Icon",
       type: "string",
-      description:
-        "Name of the Icon",
+      description: "Name of the Icon",
     }),
   ],
   preview: {

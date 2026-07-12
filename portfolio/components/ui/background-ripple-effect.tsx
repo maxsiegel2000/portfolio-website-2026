@@ -1,6 +1,6 @@
 "use client";
 import type React from "react";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const BackgroundRippleEffect = ({
@@ -17,11 +17,8 @@ export const BackgroundRippleEffect = ({
     col: number;
   } | null>(null);
   const [rippleKey, setRippleKey] = useState(0);
-  const ref = useRef<any>(null);
-
   return (
     <div
-      ref={ref}
       className={cn(
         "absolute inset-0 h-full w-full",
         "[--cell-border-color:var(--border-primary)] [--cell-fill-color:var(--bg-primary)] [--cell-shadow-color:var(--bg-secondary)]",
@@ -122,7 +119,7 @@ const DivGrid = ({
               borderColor: borderColor,
               ...style,
             }}
-            onClick={
+            onPointerDown={
               interactive ? () => onCellClick?.(rowIdx, colIdx) : undefined
             }
           />

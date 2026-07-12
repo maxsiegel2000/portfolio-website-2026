@@ -69,7 +69,7 @@ const ConnectIcon = forwardRef<ConnectIconHandle, ConnectIconProps>(
           controls.start("animate");
         }
       },
-      [controls, onMouseEnter]
+      [controls, onMouseEnter],
     );
 
     const handleMouseLeave = useCallback(
@@ -80,7 +80,7 @@ const ConnectIcon = forwardRef<ConnectIconHandle, ConnectIconProps>(
           controls.start("normal");
         }
       },
-      [controls, onMouseLeave]
+      [controls, onMouseLeave],
     );
 
     return (
@@ -156,7 +156,7 @@ const ConnectIcon = forwardRef<ConnectIconHandle, ConnectIconProps>(
         </svg>
       </div>
     );
-  }
+  },
 );
 
 ConnectIcon.displayName = "ConnectIcon";

@@ -1,5 +1,5 @@
-import { sanityFetch } from "@/sanity/lib/live";
 import { defineQuery } from "next-sanity";
+import { sanityFetch } from "@/sanity/lib/live";
 import SidebarToggle from "../SidebarToggle";
 import Chat from "./Chat";
 

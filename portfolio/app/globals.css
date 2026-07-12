@@ -6,7 +6,7 @@
 @theme inline {
   --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
   --animate-cell-ripple: cell-ripple var(--duration, 200ms) ease-out none 1
-  var(--delay, 0ms);
+    var(--delay, 0ms);
 
   @keyframes cell-ripple {
     0% {
@@ -76,11 +76,11 @@
   --color-text-muted: var(--text-muted);
   --animate-star-btn: star-btn calc(var(--duration) * 1s) linear infinite;
   @keyframes star-btn {
-  0% {
-    offset-distance: 0%;
+    0% {
+      offset-distance: 0%;
     }
-  100% {
-    offset-distance: 100%;
+    100% {
+      offset-distance: 100%;
     }
   }
 }
@@ -107,11 +107,16 @@
 
   --bg-gradient-primary: linear-gradient(135deg, #f7f8fa, #eef0f4);
   --bg-gradient-secondary: linear-gradient(135deg, #eef0f4, #e5e8ee);
-  --accent-gradient-primary: linear-gradient(135deg, #90def7 0%, #35bae7 80%, #1d4ed8 100%);
+  --accent-gradient-primary: linear-gradient(
+    135deg,
+    #90def7 0%,
+    #35bae7 80%,
+    #1d4ed8 100%
+  );
   --accent-gradient-secondary: linear-gradient(to right, #90def7, #35bae7);
   --accent-gradient-tertiary: linear-gradient(to right, #35bae7, #1d4ed8);
 
-  --drop-shadow-dialog: 0px 10px 15px rgb(0, 0, 0, 0.1)
+  --drop-shadow-dialog: 0px 10px 15px rgb(0, 0, 0, 0.1);
   --drop-shadow-card: 0 4px 12px rgba(100, 107, 119, 0.1);
   --drop-shadow-button: 0 6px 16px rgba(15, 23, 42, 0.12);
   --drop-shadow-glow: 0 0 10px rgba(53, 186, 231, 30);
@@ -171,7 +176,12 @@
 
   --bg-gradient-primary: linear-gradient(135deg, #13161d, #0a0d12);
   --bg-gradient-secondary: linear-gradient(135deg, #1e222b, #13161d);
-  --accent-gradient-primary: linear-gradient(135deg, #204FD7 0%, #35bae7 80%, #7AECF5 100%);
+  --accent-gradient-primary: linear-gradient(
+    135deg,
+    #204fd7 0%,
+    #35bae7 80%,
+    #7aecf5 100%
+  );
   --accent-gradient-secondary: linear-gradient(to right, #7aecf5, #35bae7);
   --accent-gradient-tertiary: linear-gradient(to right, #35bae7, #204fd7);
 
@@ -227,7 +237,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Nunito', sans-serif;
+    font-family: "Nunito", sans-serif;
     overflow-x: clip;
   }
 
@@ -243,8 +253,12 @@
   }
 
   .mask-top-fade {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 40%, #0A0D12 100%);
-    mask-image: linear-gradient(to bottom, transparent 40%, #0A0D12 100%);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 40%,
+      #0a0d12 100%
+    );
+    mask-image: linear-gradient(to bottom, transparent 40%, #0a0d12 100%);
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-size: 100% 100%;
@@ -252,7 +266,7 @@
   }
 }
 
-@theme{
+@theme {
   --animate-ping-large: ping-large 1s ease-in-out infinite;
 
   @keyframes ping-large {
@@ -265,41 +279,57 @@
 }
 
 .mask-top-fade {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 40%, #0A0D12 100%);
-  mask-image: linear-gradient(to bottom, transparent 40%, #0A0D12 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 40%, #0a0d12 100%);
+  mask-image: linear-gradient(to bottom, transparent 40%, #0a0d12 100%);
 }
 
 .mask-bot-fade {
-  -webkit-mask-image: linear-gradient(to top, transparent 40%, #0A0D12 100%);
-  mask-image: linear-gradient(to top, transparent 40%, #0A0D12 100%);
+  -webkit-mask-image: linear-gradient(to top, transparent 40%, #0a0d12 100%);
+  mask-image: linear-gradient(to top, transparent 40%, #0a0d12 100%);
 }
 
 .mask-left-fade {
-  -webkit-mask-image: linear-gradient(to left, transparent 40%, #0A0D12 100%);
-  mask-image: linear-gradient(to left, transparent 40%, #0A0D12 100%);
+  -webkit-mask-image: linear-gradient(to left, transparent 40%, #0a0d12 100%);
+  mask-image: linear-gradient(to left, transparent 40%, #0a0d12 100%);
 }
 
 .mask-right-fade {
-  -webkit-mask-image: linear-gradient(to right, transparent 40%, #0A0D12 100%);
-  mask-image: linear-gradient(to right, transparent 40%, #0A0D12 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 40%, #0a0d12 100%);
+  mask-image: linear-gradient(to right, transparent 40%, #0a0d12 100%);
 }
 
 .mask-top-right-fade {
-  -webkit-mask-image: linear-gradient(to top right, transparent 60%, #0A0D12 100%);
-  mask-image: linear-gradient(to top right, transparent 60%, #0A0D12 100%);
+  -webkit-mask-image: linear-gradient(
+    to top right,
+    transparent 60%,
+    #0a0d12 100%
+  );
+  mask-image: linear-gradient(to top right, transparent 60%, #0a0d12 100%);
 }
 
 .mask-top-left-fade {
-  -webkit-mask-image: linear-gradient(to top left, transparent 60%, #0A0D12 100%);
-  mask-image: linear-gradient(to top left, transparent 60%, #0A0D12 100%);
+  -webkit-mask-image: linear-gradient(
+    to top left,
+    transparent 60%,
+    #0a0d12 100%
+  );
+  mask-image: linear-gradient(to top left, transparent 60%, #0a0d12 100%);
 }
 
 .mask-bot-left-fade {
-  -webkit-mask-image: linear-gradient(to bottom left, transparent 60%, #0A0D12 100%);
-  mask-image: linear-gradient(to bottom left, transparent 60%, #0A0D12 100%);
+  -webkit-mask-image: linear-gradient(
+    to bottom left,
+    transparent 60%,
+    #0a0d12 100%
+  );
+  mask-image: linear-gradient(to bottom left, transparent 60%, #0a0d12 100%);
 }
 
 .mask-bot-right-fade {
-  -webkit-mask-image: linear-gradient(to bottom right, transparent 60%, #0A0D12 100%);
-  mask-image: linear-gradient(to bottom right, transparent 60%, #0A0D12 100%);
+  -webkit-mask-image: linear-gradient(
+    to bottom right,
+    transparent 60%,
+    #0a0d12 100%
+  );
+  mask-image: linear-gradient(to bottom right, transparent 60%, #0a0d12 100%);
 }

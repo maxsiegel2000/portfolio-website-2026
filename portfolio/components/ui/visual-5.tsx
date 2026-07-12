@@ -15,18 +15,18 @@ export function Visual5({ gridColor = "#80808015" }: Visual4Props) {
 
   return (
     <motion.div
-      className="relative overflow-hidden"
+      className="relative flex h-full w-full items-center justify-center overflow-hidden px-4 md:px-6"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <GridLayer color={gridColor} />
 
-      <motion.svg 
-        width="480" 
-        height="260" 
+      <motion.svg
         viewBox="0 0 480 260"
-        className="relative z-20"
-        >
+        preserveAspectRatio="xMidYMid meet"
+        aria-hidden="true"
+        className="relative z-20 block h-full w-full min-w-0 max-w-[480px]"
+      >
         <defs>
           <radialGradient id="visual5-hover-glow" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#35BAE7" stopOpacity="0.18" />
@@ -60,23 +60,54 @@ export function Visual5({ gridColor = "#80808015" }: Visual4Props) {
             stroke="#204fD7"
             strokeWidth={2.4}
             initial={{ pathLength: 0, opacity: 0 }}
-            animate={hovered ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
-            transition={{ duration: 0.45, delay: hovered ? 0.16 : 0, ease: "easeOut" }}
+            animate={
+              hovered
+                ? { pathLength: 1, opacity: 1 }
+                : { pathLength: 0, opacity: 0 }
+            }
+            transition={{
+              duration: 0.45,
+              delay: hovered ? 0.16 : 0,
+              ease: "easeOut",
+            }}
           />
           <motion.circle
             cx="250"
             cy="88"
             r="6.5"
             initial={false}
-            animate={{ fill: hovered ? "#204FD7" : "#4B5563", opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.16, delay: hovered ? 0.26 : 0, ease: "easeOut" }}
+            animate={{
+              fill: hovered ? "#204FD7" : "#4B5563",
+              opacity: hovered ? 1 : 0,
+            }}
+            transition={{
+              duration: 0.16,
+              delay: hovered ? 0.26 : 0,
+              ease: "easeOut",
+            }}
           />
         </g>
 
         {/* Main Branch */}
         <g>
-          <line x1="72" y1="132" x2="250" y2="132" stroke="#586171" strokeWidth="2.2" strokeLinecap="round" />
-          <line x1="250" y1="132" x2="392" y2="132" stroke="#586171" strokeWidth="2.2" strokeLinecap="round" />
+          <line
+            x1="72"
+            y1="132"
+            x2="250"
+            y2="132"
+            stroke="#586171"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+          />
+          <line
+            x1="250"
+            y1="132"
+            x2="392"
+            y2="132"
+            stroke="#586171"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+          />
           <motion.line
             x1="250"
             y1="132"
@@ -114,7 +145,11 @@ export function Visual5({ gridColor = "#80808015" }: Visual4Props) {
             r="7"
             initial={false}
             animate={{ fill: hovered ? "#204FD7" : "#4B5563" }}
-            transition={{ duration: 0.16, delay: hovered ? 0.6 : 0, ease: "easeOut" }}
+            transition={{
+              duration: 0.16,
+              delay: hovered ? 0.6 : 0,
+              ease: "easeOut",
+            }}
           />
 
           {/* Rectangle */}
@@ -129,7 +164,11 @@ export function Visual5({ gridColor = "#80808015" }: Visual4Props) {
               fill: hovered ? "#358fab" : "#13161D",
               stroke: hovered ? "#67E8F9" : "#374151",
             }}
-            transition={{ duration: 0.22, delay: hovered ? 0.6 : 0, ease: "easeOut" }}
+            transition={{
+              duration: 0.22,
+              delay: hovered ? 0.6 : 0,
+              ease: "easeOut",
+            }}
           />
 
           <motion.rect
@@ -140,10 +179,14 @@ export function Visual5({ gridColor = "#80808015" }: Visual4Props) {
             rx="3"
             initial={false}
             animate={{ fill: hovered ? "#D8F7FF" : "#5B6472" }}
-            transition={{ duration: 0.22, delay: hovered ? 0.6 : 0, ease: "easeOut" }}
+            transition={{
+              duration: 0.22,
+              delay: hovered ? 0.6 : 0,
+              ease: "easeOut",
+            }}
           />
         </g>
-      
+
         {/* Bottom Branch */}
         <g>
           <motion.path
@@ -154,8 +197,16 @@ export function Visual5({ gridColor = "#80808015" }: Visual4Props) {
             className="z-10"
             strokeWidth={2.4}
             initial={{ pathLength: 0, opacity: 0 }}
-            animate={hovered ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
-            transition={{ duration: 0.45, delay: hovered ? 0.16 : 0, ease: "easeOut" }}
+            animate={
+              hovered
+                ? { pathLength: 1, opacity: 1 }
+                : { pathLength: 0, opacity: 0 }
+            }
+            transition={{
+              duration: 0.45,
+              delay: hovered ? 0.16 : 0,
+              ease: "easeOut",
+            }}
           />
 
           <motion.circle
@@ -163,8 +214,15 @@ export function Visual5({ gridColor = "#80808015" }: Visual4Props) {
             cy="178"
             r="6.5"
             initial={false}
-            animate={{ fill: hovered ? "#8B5CF6" : "#4B5563", opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.16, delay: hovered ? 0.4 : 0, ease: "easeOut" }}
+            animate={{
+              fill: hovered ? "#8B5CF6" : "#4B5563",
+              opacity: hovered ? 1 : 0,
+            }}
+            transition={{
+              duration: 0.16,
+              delay: hovered ? 0.4 : 0,
+              ease: "easeOut",
+            }}
           />
 
           {/* Rectangle */}
@@ -180,7 +238,11 @@ export function Visual5({ gridColor = "#80808015" }: Visual4Props) {
               stroke: hovered ? "#C084FC" : "#374151",
               opacity: hovered ? 1 : 0,
             }}
-            transition={{ duration: 0.22, delay: hovered ? 0.6 : 0, ease: "easeOut" }}
+            transition={{
+              duration: 0.22,
+              delay: hovered ? 0.6 : 0,
+              ease: "easeOut",
+            }}
           />
 
           <motion.rect
@@ -190,8 +252,15 @@ export function Visual5({ gridColor = "#80808015" }: Visual4Props) {
             height="6"
             rx="3"
             initial={false}
-            animate={{ fill: hovered ? "#F3E8FF" : "#5B6472", opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.22, delay: hovered ? 0.6 : 0, ease: "easeOut" }}
+            animate={{
+              fill: hovered ? "#F3E8FF" : "#5B6472",
+              opacity: hovered ? 1 : 0,
+            }}
+            transition={{
+              duration: 0.22,
+              delay: hovered ? 0.6 : 0,
+              ease: "easeOut",
+            }}
           />
         </g>
       </motion.svg>

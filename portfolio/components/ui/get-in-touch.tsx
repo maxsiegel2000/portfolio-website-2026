@@ -7,10 +7,7 @@ type ContactInfoProps = {
   phone?: string | null;
 };
 
-export const ContactInfoCards = ({
-  email,
-  phone,
-}: ContactInfoProps) => {
+export const ContactInfoCards = ({ email, phone }: ContactInfoProps) => {
   const contactItems = [
     {
       name: "Email",
@@ -38,7 +35,10 @@ export const ContactInfoCards = ({
     <div className="flex flex-col gap-6 mx-auto">
       {contactItems.map((item) => {
         const content = (
-          <div className="relative bg-[#1e222b] backdrop-blur-2xl rounded-lg p-4 border overflow-hidden transition-all duration-500 hover:scale-105 w-full">
+          <div
+            key={item.name}
+            className="relative bg-[#1e222b] backdrop-blur-2xl rounded-lg p-4 border overflow-hidden transition-all duration-500 hover:scale-105 w-full"
+          >
             {/* Hover Gradient Effect */}
             <div
               className={`absolute inset-0 bg-linear-to-br ${item.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
@@ -106,12 +106,12 @@ export const ContactInfoCards = ({
 
 type SocialLinksProps = {
   socialLinks?: {
-    github?: string | null
-    linkedin?: string | null
-  } | null
-}
+    github?: string | null;
+    linkedin?: string | null;
+  } | null;
+};
 
-export const SocialLinks = ({socialLinks}: SocialLinksProps) => {
+export const SocialLinks = ({ socialLinks }: SocialLinksProps) => {
   const socialPlatforms = [
     {
       name: "LinkedIn",
@@ -146,7 +146,7 @@ export const SocialLinks = ({socialLinks}: SocialLinksProps) => {
       {socialPlatforms.map((platform) => (
         <a
           key={platform.name}
-          href={platform.link}
+          href={platform.link ?? undefined}
           className="group relative transition-all duration-700 block w-full"
         >
           {/* Card Container */}

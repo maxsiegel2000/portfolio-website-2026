@@ -63,10 +63,8 @@ const createItemVariants = ({
   const transition = {
     duration: toSeconds(duration),
     ease,
+    ...(delay !== undefined ? { delay: toSeconds(delay) } : {}),
   };
-  if (delay !== undefined) {
-    transition.delay = toSeconds(delay);
-  }
 
   switch (preset) {
     case "fadeIn":
@@ -120,7 +118,7 @@ export function Reveal({
   ease = DEFAULT_EASE,
   once = true,
   amount = 0.1,
-  margin = "-100px",
+  margin = "-60px 0px",
   customVariants,
   initial = "hidden",
   whileInView = "visible",
@@ -147,7 +145,7 @@ export function RevealGroup({
   delayChildren = 0.1,
   once = true,
   amount = 0.1,
-  margin = "-200px",
+  margin = "-80px 0px",
   customVariants,
   initial = "hidden",
   whileInView = "visible",

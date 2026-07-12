@@ -1,7 +1,7 @@
 "use client";
 
 import { useClerk, useUser } from "@clerk/nextjs";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Transition } from "framer-motion";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useActiveSectionContext } from "@/context/active-section-context";
@@ -34,7 +34,7 @@ type DockLink = {
   iconName?: string;
   isAnimatedIcon?: boolean;
   isLogoutIcon?: boolean;
-  onClick?: () => void;
+  onClick?: () => void | Promise<void>;
 };
 
 const buttonVariants = {
@@ -51,7 +51,11 @@ const labelVariants = {
   exit: { width: 0, opacity: 0 },
 };
 
-const transition = { type: "spring", bounce: 0, duration: 0.45 };
+const transition: Transition = {
+  type: "spring",
+  bounce: 0,
+  duration: 0.45,
+};
 
 const SECTION_BY_KEY: Record<string, SectionName> = {
   home: "Home",
@@ -66,7 +70,6 @@ const normalizeToSectionName = (value?: string | null): SectionName | null => {
   const key = value.trim().toLowerCase().replace(/^#/, "").replace(/^\/+/, "");
   return SECTION_BY_KEY[key] ?? null;
 };
-
 
 export function DockClient({
   navItems,
@@ -99,7 +102,8 @@ export function DockClient({
         isExternal: Boolean(item.isExternal),
         sectionName:
           normalizeToSectionName(item.href) ??
-          normalizeToSectionName(item.title),
+          normalizeToSectionName(item.title) ??
+          undefined,
         iconName: item.icon || "",
         isAnimatedIcon: true,
         icon: null,

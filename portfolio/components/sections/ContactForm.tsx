@@ -1,7 +1,7 @@
 "use client";
 
-import { submitContactForm } from "@/actions/submit-contact-form";
 import { useState, useTransition } from "react";
+import { submitContactForm } from "@/actions/submit-contact-form";
 import {
   Field,
   FieldContent,
@@ -49,6 +49,16 @@ export function ContactForm() {
   return (
     <div className="@container/form bg-[#1e222b] border rounded-lg p-4 @md/form:p-6 h-full">
       <form className="space-y-8 @md/form:space-y-5" onSubmit={handleSubmit}>
+        <div className="hidden" aria-hidden="true">
+          <label htmlFor="website">Website</label>
+          <input
+            id="website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
         <FieldSet className="gap-4 @md/form:gap-5">
           <FieldLegend className="text-xl @md/form:text-2xl">
             Send a Message
@@ -83,6 +93,7 @@ export function ContactForm() {
                   name="name"
                   className="h-auto px-3 py-1.5 @md/form:px-4 @md/form:py-2 rounded-lg bg-background text-sm @md/form:text-base"
                   placeholder="Your name"
+                  maxLength={100}
                   required
                   disabled={isPending}
                 />
@@ -103,6 +114,7 @@ export function ContactForm() {
                   name="email"
                   className="h-auto px-3 py-1.5 @md/form:px-4 @md/form:py-2 rounded-lg bg-background text-sm @md/form:text-base"
                   placeholder="your.email@example.com"
+                  maxLength={254}
                   required
                   disabled={isPending}
                 />
@@ -123,6 +135,7 @@ export function ContactForm() {
                   name="subject"
                   className="h-auto px-3 py-1.5 @md/form:px-4 @md/form:py-2 rounded-lg bg-background text-sm @md/form:text-base"
                   placeholder="What's this about?"
+                  maxLength={150}
                   required
                   disabled={isPending}
                 />
@@ -143,6 +156,7 @@ export function ContactForm() {
                   rows={5}
                   className="px-3 py-1.5 @md/form:px-4 @md/form:py-2 rounded-lg bg-background resize-none text-sm @md/form:text-base"
                   placeholder="Tell me about your project..."
+                  maxLength={5000}
                   required
                   disabled={isPending}
                 />

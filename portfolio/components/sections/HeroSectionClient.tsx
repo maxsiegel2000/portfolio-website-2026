@@ -17,21 +17,25 @@ import { MapPinIcon, type MapPinIconHandle } from "../ui/map-pin";
 import { Spotlight } from "../ui/spotlight-new";
 
 type HeroProfile = {
-  firstName?: string;
-  lastName?: string;
-  colorHeadline?: string;
-  headline?: string;
-  headlineStaticText?: string;
-  headlineAnimatedWords?: string[];
-  headlineAnimationDuration?: number;
-  shortBio?: string;
-  email?: string;
-  phone?: string;
-  location?: string;
-  availability?: string;
-  socialLinks?: Profile["socialLinks"];
-  yearsOfExperience?: number;
-  profileImage?: Profile["profileImage"];
+  firstName?: string | null;
+  lastName?: string | null;
+  colorHeadline?: string | null;
+  headline?: string | null;
+  headlineStaticText?: string | null;
+  headlineAnimatedWords?: string[] | null;
+  headlineAnimationDuration?: number | null;
+  shortBio?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  location?: string | null;
+  availability?: string | null;
+  socialLinks?: {
+    github?: string | null;
+    linkedin?: string | null;
+    website?: string | null;
+  } | null;
+  yearsOfExperience?: number | null;
+  profileImage?: Profile["profileImage"] | null;
 };
 
 type HeroSectionClientProps = {

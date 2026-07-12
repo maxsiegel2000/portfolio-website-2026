@@ -33,8 +33,6 @@
 .gradient-overlay::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0;
   border-radius: inherit;
   width: calc(100% - 2px);
   height: calc(100% - 2px);

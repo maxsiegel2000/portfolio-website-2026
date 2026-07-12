@@ -16,7 +16,7 @@ const PROJECTS_QUERY =
   coverImage,
   "coverImageWidth": coverImage.asset->metadata.dimensions.width,
   "coverImageHeight": coverImage.asset->metadata.dimensions.height,
-  technologies[]->{name, category, color, icon}
+  technologies[]->{name, category, icon}
 }`);
 
 export async function ProjectsSection() {
@@ -52,7 +52,6 @@ export async function ProjectsSection() {
         technologies: (project.technologies ?? []).map((tech) => ({
           name: tech?.name ?? "Unknown",
           category: tech?.category ?? "other",
-          color: tech?.color ?? "#7aecf5",
           icon: tech?.icon ?? "",
         })),
       };

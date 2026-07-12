@@ -1,22 +1,26 @@
 "use client";
 
-import {
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
-  SiTailwindcss,
-  SiNodedotjs,
-  SiPrisma,
-} from "react-icons/si";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import type { IconType } from "react-icons";
-import * as TbIcons from "react-icons/tb";
-import * as TfiIcons from "react-icons/tfi";
 import * as AiIcons from "react-icons/ai";
 import * as BiIcons from "react-icons/bi";
-import SectionHeader from "./SectionHeader";
+import {
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPrisma,
+  SiReact,
+  SiTailwindcss,
+  SiTypescript,
+} from "react-icons/si";
+import * as TbIcons from "react-icons/tb";
+import * as TfiIcons from "react-icons/tfi";
+import {
+  getSkillProficiencyColor,
+  SKILL_PROGRESS_GRADIENT,
+} from "@/lib/skill-proficiency";
 import { RevealGroup, RevealItem } from "../animations/reveal";
-import { motion } from "framer-motion"
-import { useState } from "react";
+import SectionHeader from "./SectionHeader";
 
 interface Skill {
   name: string | null;
@@ -24,7 +28,6 @@ interface Skill {
   proficiency: string | null;
   percentage: number | null;
   yearsOfExperience: number | null;
-  color: string | null;
   icon: string | null;
 }
 
@@ -51,7 +54,7 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
     category: string,
     categorySkills: Skill[],
     className = "",
-    listClassName = ""
+    listClassName = "",
   ) => {
     if (!categorySkills || categorySkills.length === 0) return null;
 
@@ -59,7 +62,6 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
       .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-
 
     return (
       <div
@@ -73,7 +75,12 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
         </div>
         <div className={`space-y-5 ${listClassName}`}>
           {categorySkills.map((skill, index) => {
-            const color = skill.color ?? "#7aecf5";
+            const color = getSkillProficiencyColor(skill.proficiency);
+            const percentage = Math.min(
+              Math.max(skill.percentage ?? 0, 0),
+              100,
+            );
+            const hiddenPercentage = barsReady ? 100 - percentage : 100;
             const Icon = getSkillIcon(skill.icon);
             return (
               <div key={skill.name} className="space-y-2">
@@ -82,7 +89,9 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
                     <div className="relative p-2 bg-white/5 rounded-lg overflow-hidden transition-all duration-500">
                       <div className="absolute inset-0 bg-linear-to-br from-[#35bae7]/20 to-[#204fd7]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       <div className="relative z-10">
-                        {Icon ? <Icon className="text-base text-primary" /> : null}
+                        {Icon ? (
+                          <Icon className="text-base text-primary" />
+                        ) : null}
                       </div>
                     </div>
                     <div>
@@ -107,10 +116,19 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
                 </div>
                 <div className="relative h-1.5 bg-white/5 rounded-full overflow-hidden">
                   <motion.div
-                    className="absolute top-0 left-0 h-full bg-linear-to-r from-[#35bae7] to-[#204fd7] rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: barsReady ? `${skill.percentage ?? 0}%` : "0%" }}
-                    transition={{ duration: 1, ease: "easeOut", delay: 0.1 + index * 0.08 }}
+                    className="absolute inset-0 rounded-full"
+                    style={{ backgroundImage: SKILL_PROGRESS_GRADIENT }}
+                    initial={{
+                      clipPath: "inset(0 100% 0 0 round 9999px)",
+                    }}
+                    animate={{
+                      clipPath: `inset(0 ${hiddenPercentage}% 0 0 round 9999px)`,
+                    }}
+                    transition={{
+                      duration: 1,
+                      ease: "easeOut",
+                      delay: 0.1 + index * 0.08,
+                    }}
                   />
                 </div>
               </div>
@@ -124,7 +142,8 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
   const frontendSkills = groupedSkills.get("Frontend") ?? [];
   const backendSkills = groupedSkills.get("Backend") ?? [];
   const toolsSkills = groupedSkills.get("Tools") ?? [];
-  const aiSkills = groupedSkills.get("Ai-Ml") ?? [];
+  const productDevelopmentSkills =
+    groupedSkills.get("Product Development") ?? [];
 
   const stack = [
     { name: "React.js", icon: SiReact },
@@ -152,8 +171,14 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
 
   return (
     <>
-      <SectionHeader header="Skills & "animatedHeader="Technologies" pillText="My Expertise" pillIcon="tool" describtion="A comprehensive overview of my technical skills and proficiency levels."/>
-      <RevealGroup 
+      <SectionHeader
+        header="Skills & "
+        animatedHeader="Technologies"
+        pillText="My Expertise"
+        pillIcon="tool"
+        describtion="A comprehensive overview of my technical skills and proficiency levels."
+      />
+      <RevealGroup
         className="flex flex-col items-center justify-center gap-14"
         onAnimationComplete={(definition) => {
           if (definition === "visible") setBarsReady(true);
@@ -175,26 +200,51 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
             ))}
           </div>
         </RevealItem>
-        {/* Skill Section Grid*/}
-        <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[auto_auto] gap-4 items-start md:items-stretch lg:items-start w-full max-w-300 mx-auto">
-          <RevealItem preset="slideLeft" distance={100} className="lg:row-span-2 lg:self-stretch lg:min-h-0">
-            {renderCategoryCard(
-                "Frontend",
-                frontendSkills,
-              )}
-          </RevealItem>
-          <RevealItem preset="fadeUp" distance={100} className="lg:row-span-2 lg:self-stretch lg:min-h-0">
-            {renderCategoryCard(
-                "Backend",
-                backendSkills,
-              )}
-          </RevealItem>
-          <RevealItem preset="slideRight" distance={100} className="lg:col-start-3 lg:row-start-1">
-            {renderCategoryCard("Tools", toolsSkills)}
-          </RevealItem>
-          <RevealItem preset="slideRight" distance={100} className="lg:col-start-3 lg:row-start-2">
-             {renderCategoryCard("Ai-Ml", aiSkills)}
-          </RevealItem>
+        {/* Skill Section Grid */}
+        <RevealGroup className="flex w-full max-w-300 flex-col gap-4 mx-auto md:grid md:grid-cols-2 md:items-start">
+          <div className="contents md:flex md:min-w-0 md:flex-col md:gap-4">
+            {frontendSkills.length > 0 ? (
+              <RevealItem
+                preset="slideLeft"
+                distance={100}
+                className="order-1 md:order-0"
+              >
+                {renderCategoryCard("Frontend", frontendSkills)}
+              </RevealItem>
+            ) : null}
+            {toolsSkills.length > 0 ? (
+              <RevealItem
+                preset="slideLeft"
+                distance={100}
+                className="order-3 md:order-0"
+              >
+                {renderCategoryCard("Tools", toolsSkills)}
+              </RevealItem>
+            ) : null}
+          </div>
+          <div className="contents md:flex md:min-w-0 md:flex-col md:gap-4">
+            {backendSkills.length > 0 ? (
+              <RevealItem
+                preset="slideRight"
+                distance={100}
+                className="order-2 md:order-0"
+              >
+                {renderCategoryCard("Backend", backendSkills)}
+              </RevealItem>
+            ) : null}
+            {productDevelopmentSkills.length > 0 ? (
+              <RevealItem
+                preset="slideRight"
+                distance={100}
+                className="order-4 md:order-0"
+              >
+                {renderCategoryCard(
+                  "Product Development",
+                  productDevelopmentSkills,
+                )}
+              </RevealItem>
+            ) : null}
+          </div>
         </RevealGroup>
       </RevealGroup>
     </>

@@ -9,7 +9,6 @@ const SKILLS_QUERY =
   proficiency,
   percentage,
   yearsOfExperience,
-  color,
   icon
 }`);
 

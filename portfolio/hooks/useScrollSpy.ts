@@ -44,6 +44,6 @@ export const scrollToSection = (sectionId: string, offset = 80) => {
 
   window.scrollTo({
     top: section.offsetTop - offset,
-    behavior: "smooth"
+    behavior: "smooth",
   });
 };
