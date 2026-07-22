@@ -23,6 +23,16 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Max Siegel Portfolio",
   description: "My personal Portfolio Website to show my Skills and Work.",
+  icons: {
+    icon: [
+      {
+        url: "/portfolio-favicon-v2.png",
+        type: "image/png",
+        sizes: "512x512",
+      },
+    ],
+    shortcut: "/portfolio-favicon-v2.png",
+  },
 };
 
 export default function RootLayout({
