@@ -119,26 +119,6 @@ function AuthenticatedChat({
       ],
     },
 
-    composer: {
-      models: [
-        {
-          id: "crisp",
-          label: "Crisp",
-          description: "Concise and factual",
-        },
-        {
-          id: "clear",
-          label: "Clear",
-          description: "Focused and helpful",
-        },
-        {
-          id: "chatty",
-          label: "Chatty",
-          description: "Conversational companion",
-        },
-      ],
-    },
-
     disclaimer: {
       text: "Disclaimer: This is my AI-powered twin. It may not be 100% accurate and should be verified for accuracy.",
     },
