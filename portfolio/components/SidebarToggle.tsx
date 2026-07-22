@@ -21,7 +21,7 @@ function SidebarToggle() {
 		flex items-center justify-center`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 group">
+    <div className="group fixed top-[calc(env(safe-area-inset-top)+1.5rem)] right-6 z-50 md:top-auto md:bottom-6">
       {/* Animated rings */}
       <div className="absolute inset-0 rounded-full bg-linear-to-br from-[#7aecf5] to-[#35bae7] opacity-20 blur-2xl animate-ping animation-duration-[2s]" />
       <div className="absolute inset-0 rounded-full bg-linear-to-br from-[#35bae7] to-[#204fd7] opacity-30 blur-xl animate-pulse animation-duration-[3s]" />
@@ -32,7 +32,7 @@ function SidebarToggle() {
         </div>
       </div>
       {/* Tooltip */}
-      <div className="absolute bottom-full right-0 mb-2 px-3 py-1.5 rounded-lg bg-background backdrop-blur-xl border text-sm font-medium text-primary whitespace-nowrap opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 group-hover:-translate-y-1 transition-all duration-300 pointer-events-none shadow-[0_8px_32px_0_rgba(0,0,0,0.2)]">
+      <div className="pointer-events-none absolute right-0 bottom-full mb-2 hidden scale-90 rounded-lg border bg-background px-3 py-1.5 text-sm font-medium whitespace-nowrap text-primary opacity-0 shadow-[0_8px_32px_0_rgba(0,0,0,0.2)] backdrop-blur-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-100 group-hover:opacity-100 md:block">
         Chat with My AI Twin
         {/* Tooltip arrow */}
         <div className="absolute -bottom-1 right-6 w-2 h-2 rotate-45 bg-background border-r border-b" />
