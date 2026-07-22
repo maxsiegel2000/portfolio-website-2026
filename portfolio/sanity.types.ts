@@ -12,6 +12,8 @@
  * ---------------------------------------------------------------------------------
  */
 
+export declare const internalGroqTypeReferenceTo: unique symbol;
+
 // Source: schema.json
 export type Navigation = {
   _id: string;
@@ -26,6 +28,13 @@ export type Navigation = {
   order?: number;
 };
 
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
 export type SiteSettings = {
   _id: string;
   _type: "siteSettings";
@@ -36,36 +45,21 @@ export type SiteSettings = {
   siteDescription?: string;
   siteKeywords?: Array<string>;
   siteLogo?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
+    asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
   };
   favicon?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
+    asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
   };
   ogImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
+    asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
@@ -79,12 +73,7 @@ export type SiteSettings = {
   heroHeadline?: string;
   heroSubheadline?: string;
   heroBackground?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
+    asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
@@ -141,12 +130,7 @@ export type Education = {
   description?: string;
   achievements?: Array<string>;
   logo?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
+    asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
@@ -154,6 +138,13 @@ export type Education = {
   };
   website?: string;
   order?: number;
+};
+
+export type SkillReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "skill";
 };
 
 export type Experience = {
@@ -194,20 +185,13 @@ export type Experience = {
   }>;
   responsibilities?: Array<string>;
   achievements?: Array<string>;
-  technologies?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "skill";
-  }>;
+  technologies?: Array<
+    {
+      _key: string;
+    } & SkillReference
+  >;
   companyLogo?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
+    asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
@@ -216,6 +200,13 @@ export type Experience = {
   };
   companyWebsite?: string;
   order?: number;
+};
+
+export type SanityFileAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
 };
 
 export type Project = {
@@ -228,25 +219,18 @@ export type Project = {
   slug?: Slug;
   tagline?: string;
   coverImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
+    asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
   };
-  technologies?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "skill";
-  }>;
+  technologies?: Array<
+    {
+      _key: string;
+    } & SkillReference
+  >;
   category?:
     | "web-app"
     | "mobile-app"
@@ -261,6 +245,11 @@ export type Project = {
     | "other";
   liveUrl?: string;
   githubUrl?: string;
+  caseStudyPdf?: {
+    asset?: SanityFileAssetReference;
+    media?: unknown;
+    _type: "file";
+  };
   featured?: boolean;
   order?: number;
 };
@@ -333,12 +322,7 @@ export type Profile = {
     _key: string;
   }>;
   profileImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
+    asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
@@ -395,6 +379,7 @@ export type SanityImageMetadata = {
   palette?: SanityImagePalette;
   lqip?: string;
   blurHash?: string;
+  thumbHash?: string;
   hasAlpha?: boolean;
   isOpaque?: boolean;
 };
@@ -460,11 +445,14 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | Navigation
+  | SanityImageAssetReference
   | SiteSettings
   | SanityImageCrop
   | SanityImageHotspot
   | Education
+  | SkillReference
   | Experience
+  | SanityFileAssetReference
   | Project
   | Slug
   | Skill
@@ -478,8 +466,6 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageAsset
   | Geopoint;
-
-export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: components/chat/ChatWrapper.tsx
 // Variable: CHAT_PROFILE_QUERY
@@ -578,12 +564,7 @@ export type CHAT_PROFILE_QUERY_RESULT =
       } | null;
       yearsOfExperience: number | null;
       profileImage: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
+        asset?: SanityImageAssetReference;
         media?: unknown;
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
@@ -819,12 +800,7 @@ export type HERO_QUERY_RESULT =
       } | null;
       yearsOfExperience: number | null;
       profileImage: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
+        asset?: SanityImageAssetReference;
         media?: unknown;
         hotspot?: SanityImageHotspot;
         crop?: SanityImageCrop;
@@ -836,7 +812,7 @@ export type HERO_QUERY_RESULT =
 
 // Source: components/sections/ProjectsSection.tsx
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && featured == true] | order(order asc)[0...6]{  title,  slug,  tagline,  category,  liveUrl,  githubUrl,  coverImage,  "coverImageWidth": coverImage.asset->metadata.dimensions.width,  "coverImageHeight": coverImage.asset->metadata.dimensions.height,  technologies[]->{name, category, icon}}
+// Query: *[_type == "project" && featured == true] | order(order asc)[0...6]{  title,  slug,  tagline,  category,  liveUrl,  githubUrl,  "caseStudyPdfUrl": caseStudyPdf.asset->url,  coverImage,  "coverImageWidth": coverImage.asset->metadata.dimensions.width,  "coverImageHeight": coverImage.asset->metadata.dimensions.height,  technologies[]->{name, category, icon}}
 export type PROJECTS_QUERY_RESULT = Array<{
   title: string | null;
   slug: Slug | null;
@@ -856,13 +832,9 @@ export type PROJECTS_QUERY_RESULT = Array<{
     | null;
   liveUrl: string | null;
   githubUrl: string | null;
+  caseStudyPdfUrl: string | null;
   coverImage: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
+    asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
@@ -898,7 +870,7 @@ declare module "@sanity/client" {
     '*[_type == "navigation"] | order(order asc){\n  title,\n  href,\n  icon,\n  isExternal\n}': NAVIGATION_QUERY_RESULT;
     '*[_id == "singleton-profile"][0]{\n  email,\n  phone,\n  location,\n  socialLinks\n}': PROFILE_QUERY_RESULT;
     '*[_id == "singleton-profile"][0]{\n\t\tfirstName,\n\t\tlastName,\n\t\theadline,\n\t\tcolorHeadline,\n\t\theadlineStaticText,\n\t\theadlineAnimatedWords,\n\t\theadlineAnimationDuration,\n\t\tshortBio,\n\t\temail,\n\t\tphone,\n\t\tlocation,\n\t\tavailability,\n\t\tsocialLinks,\n\t\tyearsOfExperience,\n\t\tprofileImage\n\t}': HERO_QUERY_RESULT;
-    '*[_type == "project" && featured == true] | order(order asc)[0...6]{\n  title,\n  slug,\n  tagline,\n  category,\n  liveUrl,\n  githubUrl,\n  coverImage,\n  "coverImageWidth": coverImage.asset->metadata.dimensions.width,\n  "coverImageHeight": coverImage.asset->metadata.dimensions.height,\n  technologies[]->{name, category, icon}\n}': PROJECTS_QUERY_RESULT;
+    '*[_type == "project" && featured == true] | order(order asc)[0...6]{\n  title,\n  slug,\n  tagline,\n  category,\n  liveUrl,\n  githubUrl,\n  "caseStudyPdfUrl": caseStudyPdf.asset->url,\n  coverImage,\n  "coverImageWidth": coverImage.asset->metadata.dimensions.width,\n  "coverImageHeight": coverImage.asset->metadata.dimensions.height,\n  technologies[]->{name, category, icon}\n}': PROJECTS_QUERY_RESULT;
     '*[_type == "skill"] | order(category asc, order asc){\n  name,\n  category,\n  proficiency,\n  percentage,\n  yearsOfExperience,\n  icon\n}': SKILLS_QUERY_RESULT;
   }
 }

@@ -1,6 +1,7 @@
 import { defineQuery } from "next-sanity";
+import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
-import { sanityFetch } from "@/sanity/lib/live";
+import type { PROJECTS_QUERY_RESULT } from "@/sanity.types";
 import ProjectsSectionClient, {
   type ProjectCard,
 } from "./ProjectsSectionClient";
@@ -13,6 +14,7 @@ const PROJECTS_QUERY =
   category,
   liveUrl,
   githubUrl,
+  "caseStudyPdfUrl": caseStudyPdf.asset->url,
   coverImage,
   "coverImageWidth": coverImage.asset->metadata.dimensions.width,
   "coverImageHeight": coverImage.asset->metadata.dimensions.height,
@@ -20,7 +22,11 @@ const PROJECTS_QUERY =
 }`);
 
 export async function ProjectsSection() {
-  const { data: projects } = await sanityFetch({ query: PROJECTS_QUERY });
+  const projects = await client.fetch<PROJECTS_QUERY_RESULT>(
+    PROJECTS_QUERY,
+    {},
+    { cache: "no-store" },
+  );
 
   const mappedProjects: ProjectCard[] = (projects ?? [])
     .map((project, index) => {
@@ -28,6 +34,11 @@ export async function ProjectsSection() {
       const coverImageHeight = project.coverImageHeight ?? 0;
       const slugValue = project.slug?.current?.toLowerCase() ?? "";
       const titleValue = project.title?.toLowerCase() ?? "";
+      const isDogFlowManager =
+        slugValue.includes("dogflow") ||
+        slugValue.includes("dog-flow") ||
+        titleValue.includes("dogflow") ||
+        titleValue.includes("dog flow");
       const isPowerUpProject =
         slugValue.includes("powerup") ||
         slugValue.includes("power-up") ||
@@ -37,6 +48,11 @@ export async function ProjectsSection() {
       const coverImageUrl = project.coverImage
         ? urlFor(project.coverImage).width(1200).auto("format").url()
         : "";
+      const caseStudyPdfUrl = project.caseStudyPdfUrl
+        ? `${project.caseStudyPdfUrl}?dl=${encodeURIComponent(
+            "Max_Siegel_DogFlowManager_Case_Study.pdf",
+          )}`
+        : "";
 
       return {
         title: project.title ?? "Untitled Project",
@@ -45,6 +61,7 @@ export async function ProjectsSection() {
         category: project.category ?? "other",
         liveUrl: project.liveUrl ?? "",
         githubUrl: project.githubUrl ?? "",
+        caseStudyUrl: isDogFlowManager ? caseStudyPdfUrl : "",
         coverImageUrl,
         coverImageAlt:
           project.coverImage?.alt ?? project.title ?? "Project cover image",

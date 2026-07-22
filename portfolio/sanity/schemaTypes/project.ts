@@ -87,6 +87,25 @@ export default defineType({
       description: "Link to the GitHub repository",
     }),
     defineField({
+      name: "caseStudyPdf",
+      title: "Case Study PDF",
+      type: "file",
+      description: "PDF shown as the downloadable DogFlowManager case study",
+      options: {
+        accept: "application/pdf",
+      },
+      hidden: ({ document }) => {
+        const slug = document?.slug as { current?: string } | undefined;
+        const projectName = `${document?.title ?? ""} ${slug?.current ?? ""}`
+          .toLowerCase()
+          .replaceAll("-", " ");
+
+        return !(
+          projectName.includes("dogflow") || projectName.includes("dog flow")
+        );
+      },
+    }),
+    defineField({
       name: "featured",
       title: "Featured Project",
       type: "boolean",

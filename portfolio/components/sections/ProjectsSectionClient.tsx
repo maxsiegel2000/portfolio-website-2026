@@ -17,6 +17,7 @@ export type ProjectCard = {
   category: string;
   liveUrl: string;
   githubUrl: string;
+  caseStudyUrl: string;
   coverImageUrl: string;
   coverImageAlt: string;
   isPortraitCover: boolean;
@@ -140,6 +141,16 @@ function ProjectsSectionClient({ projects }: ProjectsSectionClientProps) {
                           >
                             Live
                           </Link>
+                        ) : null}
+                        {project.caseStudyUrl ? (
+                          <a
+                            href={project.caseStudyUrl}
+                            download="Max_Siegel_DogFlowManager_Case_Study.pdf"
+                            aria-label={`Download ${project.title} case study as PDF`}
+                            className="hover:underline hover:text-[#7aecf5] transition-all duration-300"
+                          >
+                            CaseStudy
+                          </a>
                         ) : null}
                         {project.githubUrl ? (
                           <Link
