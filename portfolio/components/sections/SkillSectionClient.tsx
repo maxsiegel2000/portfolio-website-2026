@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
 import type { IconType } from "react-icons";
 import * as AiIcons from "react-icons/ai";
 import * as BiIcons from "react-icons/bi";
@@ -36,7 +35,6 @@ interface SkillsChartProps {
 }
 
 export function SkillSectionClient({ skills }: SkillsChartProps) {
-  const [barsReady, setBarsReady] = useState(false);
   if (!skills || skills.length === 0) {
     return null;
   }
@@ -80,7 +78,6 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
               Math.max(skill.percentage ?? 0, 0),
               100,
             );
-            const hiddenPercentage = barsReady ? 100 - percentage : 100;
             const Icon = getSkillIcon(skill.icon);
             return (
               <div key={skill.name} className="space-y-2">
@@ -116,17 +113,14 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
                 </div>
                 <div className="relative h-1.5 bg-white/5 rounded-full overflow-hidden">
                   <motion.div
-                    className="absolute inset-0 rounded-full"
+                    className="absolute inset-y-0 left-0 rounded-full"
                     style={{ backgroundImage: SKILL_PROGRESS_GRADIENT }}
-                    initial={{
-                      clipPath: "inset(0 100% 0 0 round 9999px)",
-                    }}
-                    animate={{
-                      clipPath: `inset(0 ${hiddenPercentage}% 0 0 round 9999px)`,
-                    }}
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${percentage}%` }}
+                    viewport={{ once: true, amount: 0.5 }}
                     transition={{
-                      duration: 1,
-                      ease: "easeOut",
+                      duration: 1.1,
+                      ease: [0.23, 0.86, 0.39, 0.96],
                       delay: 0.1 + index * 0.08,
                     }}
                   />
@@ -178,12 +172,7 @@ export function SkillSectionClient({ skills }: SkillsChartProps) {
         pillIcon="tool"
         describtion="A comprehensive overview of my technical skills and proficiency levels."
       />
-      <RevealGroup
-        className="flex flex-col items-center justify-center gap-14"
-        onAnimationComplete={(definition) => {
-          if (definition === "visible") setBarsReady(true);
-        }}
-      >
+      <RevealGroup className="flex flex-col items-center justify-center gap-14">
         {/* Tech Stack */}
         <RevealItem preset="scaleIn">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 w-full mx-auto">
